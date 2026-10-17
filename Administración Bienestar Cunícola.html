@@ -1,0 +1,346 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Administración Bienestar Cunícola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Work+Sans:wght@500;600;700&display=swap">
+<style>
+/* Layout: barra superior verde institucional + menú lateral; en celular el menú pasa a pestañas arriba */
+:root{
+  --green:#0b7a3e; --green-dark:#075a2d; --green-soft:#e6f2ea; --yellow:#f2c200;
+  --bg:#f6f8f6; --surface:#ffffff; --fg:#14231a; --muted:#4f6157; --line:#cbd8cf; --line-strong:#14231a;
+  --danger:#a3271b; --danger-soft:#fbe9e7; --on-green:#ffffff; --chip-off:#eef1ef;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Work Sans','Atkinson Hyperlegible',system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --green:#3fae6d; --green-dark:#1f6b40; --green-soft:#16301f; --yellow:#f2c94c;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --on-green:#0f1712; --chip-off:#223028; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --green:#3fae6d; --green-dark:#1f6b40; --green-soft:#16301f; --yellow:#f2c94c;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --on-green:#0f1712; --chip-off:#223028; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.topbar{background:var(--green-dark);color:#fff;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 24px;border-bottom:4px solid var(--yellow)}
+.brand{font-family:var(--font-head);font-weight:700;font-size:18px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.brand-mark{width:30px;height:30px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;color:#14231a}
+.tag-admin{background:var(--yellow);color:#14231a;font-size:12px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:4px}
+.spacer{flex:1}
+.conn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.06em;border:2px solid #fff;border-radius:999px;padding:5px 12px}
+.conn::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--yellow)}
+.who{font-size:15px}
+.btn-top{background:transparent;color:#fff;border:2px solid #fff;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:calc(100% - 64px)}
+.side{background:var(--surface);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:8px}
+.nav-btn{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 14px;border-radius:var(--r);border:2px solid transparent;background:transparent;text-align:left;font-size:16px;cursor:pointer}
+.nav-btn:hover{background:var(--green-soft)}
+.nav-btn[aria-current="page"]{background:var(--green);color:var(--on-green);font-weight:700}
+.nav-btn svg{flex-shrink:0}
+.side-note{margin-top:auto;font-size:12px;color:var(--muted);line-height:1.4;padding:0 4px}
+main{padding-block:28px 40px;padding-inline:32px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.head h1{margin:0;font-family:var(--font-head);font-size:30px;font-weight:700;text-wrap:balance}
+.head p{margin:4px 0 0;color:var(--muted);max-width:70ch}
+.req{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:4px 8px;white-space:nowrap;margin-left:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:4px;border-top:4px solid var(--green)}
+.card b{font-size:16px}.card span{color:var(--muted);font-size:14px}
+.card .num{font-family:var(--font-head);font-size:26px;font-weight:700;color:var(--fg)}
+.toolbar{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--muted)}
+.field.grow{flex:1;min-width:220px}
+.control{height:46px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:0 12px;font-size:15px;font-weight:400;color:var(--fg)}
+.btn{height:46px;padding:0 18px;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;border:2px solid var(--green);background:var(--surface);color:var(--green);white-space:nowrap}
+.btn.primary{background:var(--green);color:var(--on-green)}
+.btn.primary:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.btn.danger{border-color:var(--danger);background:var(--danger);color:#fff}
+.btn.sm{height:38px;padding:0 12px;font-size:14px}
+.icon-btn{width:38px;height:38px;display:inline-grid;place-items:center;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);cursor:pointer}
+.icon-btn:hover{border-color:var(--green);color:var(--green)}
+.table-wrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th{background:var(--green-soft);text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:12px;border-bottom:2px solid var(--green);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:15px}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.act,th.act{text-align:right;white-space:nowrap}
+.act-row{display:inline-flex;gap:6px}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
+.chip.on{background:var(--green);color:var(--on-green)}
+.chip.off{background:var(--chip-off);color:var(--muted);border:1px dashed var(--muted)}
+.tag{display:inline-block;padding:2px 8px;border:1px solid var(--line-strong);border-radius:4px;font-size:13px;white-space:nowrap}
+.tag.pequeno{border-color:var(--green)}.tag.intensivo{background:var(--yellow);border-color:var(--yellow);color:#14231a}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.note{border:1.5px dashed var(--green);background:var(--green-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.foot{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(10,20,14,.55);display:grid;place-items:center;padding:16px;z-index:20}
+.dialog{width:min(760px,100%);max-height:calc(100% - 32px);overflow:auto;background:var(--surface);border-radius:14px;border-top:6px solid var(--green);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.dialog.narrow{width:min(520px,100%)}
+.dialog header,.dialog footer{display:flex;align-items:center;gap:10px;padding:16px 22px}
+.dialog header{border-bottom:1px solid var(--line)}
+.dialog header h2{margin:0;flex:1;font-family:var(--font-head);font-size:22px}
+.dialog footer{border-top:1px solid var(--line);justify-content:flex-end}
+.dialog .body{padding:18px 22px;display:flex;flex-direction:column;gap:14px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.grid5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.f{display:flex;flex-direction:column;gap:5px;font-size:14px;font-weight:700}
+.f small{font-weight:400;color:var(--muted)}
+.f .control{font-size:16px}
+.f.err .control{border-color:var(--danger);background:var(--danger-soft)}
+.f .msg{color:var(--danger);font-size:13px;font-weight:400;min-height:0}
+.calc{font-size:14px;color:var(--muted)}.calc b{color:var(--fg)}
+.switch{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;cursor:pointer}
+.switch input{width:22px;height:22px;accent-color:var(--green)}
+.info{background:var(--green-soft);border-radius:8px;padding:10px 12px;font-size:14px}
+.warn{display:flex;gap:14px;align-items:flex-start;font-size:16px}
+.warn svg{flex-shrink:0;color:var(--danger)}
+textarea.control{height:auto;padding:10px;font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:10px;font-weight:700;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:10px 16px}
+  .side-note{display:none}
+  .nav-btn{min-height:44px;white-space:nowrap}
+  main{padding-inline:16px}
+  .topbar{padding:10px 16px}.who{display:none}
+  .grid2,.grid3{grid-template-columns:1fr}.grid5{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="topbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 3c-1 3-1 6 1 8M15 3c1 3 1 6-1 8"/><circle cx="12" cy="15" r="5"/></svg></span>Bienestar Cunícola</div>
+  <span class="tag-admin">ADMINISTRACIÓN</span>
+  <span class="spacer"></span>
+  <span class="conn">CON CONEXIÓN</span>
+  <span class="who">Deisy Basto · Administrador</span>
+  <button class="btn-top" id="logout" type="button">Cerrar sesión</button>
+</div>
+
+<div class="shell">
+  <nav class="side" aria-label="Menú de administración">
+    <button class="nav-btn" data-sec="usuarios" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 19v-1a4 4 0 0 0-8 0v1"/><circle cx="12" cy="8" r="3.5"/></svg>Usuarios</button>
+    <button class="nav-btn" data-sec="fincas" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg>Fincas</button>
+    <button class="nav-btn" data-sec="auditoria" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Auditoría</button>
+    <p class="side-note">Solo el Administrador ve este módulo. Todo cambio queda en Auditoría.</p>
+  </nav>
+  <main id="main"></main>
+</div>
+<div id="modal-root"></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+(function(){
+  var ADMIN={nombre:'Deisy Basto',rol:'Administrador'};
+  var ROLES={'Evaluador':'Crea y diligencia las evaluaciones en campo (Etapas I a IV).','Granjero':'Solo consulta resultados y reportes de las fincas autorizadas.'};
+  var MUNICIPIOS={'Santander':['Piedecuesta','Floridablanca','Lebrija','Girón','Bucaramanga'],'Cundinamarca':['Fusagasugá','Zipaquirá','Chía']};
+  var nextId=100;
+  var st={
+    sec:'usuarios', q:'', fRol:'', fEstado:'', fMun:'', fTipo:'', aQ:'', aAcc:'',
+    usuarios:[
+      {id:1,nombres:'Andrea',apellidos:'Gómez',correo:'andrea.gomez@ucc.edu.co',rol:'Evaluador',doc:'',activo:true,acceso:'Hoy 08:12',creado:'15/09/2026'},
+      {id:2,nombres:'Luis',apellidos:'Ramírez',correo:'luis.ramirez@ucc.edu.co',rol:'Evaluador',doc:'',activo:true,acceso:'28 sep',creado:'15/09/2026'},
+      {id:3,nombres:'Jorge',apellidos:'Peña',correo:'jorge.pena@ucc.edu.co',rol:'Evaluador',doc:'',activo:true,acceso:'03 oct',creado:'20/09/2026'},
+      {id:4,nombres:'Carlos',apellidos:'Pérez',correo:'cperez@granja.co',rol:'Granjero',doc:'',activo:true,acceso:'07 oct',creado:'09/10/2026'},
+      {id:5,nombres:'Marta',apellidos:'Ruiz',correo:'mruiz@granja.co',rol:'Granjero',doc:'',activo:false,acceso:'02 sep',creado:'01/09/2026'}],
+    fincas:[
+      {id:1,nombre:'Granja La Esperanza',sigma:'',resp:'Pedro Gómez',depto:'Santander',mun:'Piedecuesta',vereda:'El Molino',dir:'Km 3 vía Guatiguará',lat:'',lon:'',inv:[9,2,5,64,16],evals:3,activa:true},
+      {id:2,nombre:'Conejera La Palma',sigma:'',resp:'Rosa Díaz',depto:'Santander',mun:'Piedecuesta',vereda:'Mensulí',dir:'Finca La Palma',lat:'',lon:'',inv:[45,5,20,300,180],evals:2,activa:true},
+      {id:3,nombre:'Cunícola El Roble',sigma:'',resp:'Hernán Rojas',depto:'Santander',mun:'Floridablanca',vereda:'Río Frío',dir:'Vía Ruitoque',lat:'',lon:'',inv:[40,4,16,250,100],evals:1,activa:true},
+      {id:4,nombre:'Conejera San Isidro',sigma:'',resp:'Luz Moreno',depto:'Santander',mun:'Lebrija',vereda:'La Puente',dir:'Km 12',lat:'',lon:'',inv:[250,25,60,1500,1000],evals:0,activa:true}],
+    aud:[
+      {f:'09/10/2026 09:03',u:'Deisy Basto',r:'Administrador',a:'Creó',e:'Usuario',d:'Carlos Pérez · Granjero'},
+      {f:'08/10/2026 17:22',u:'Andrea Gómez',r:'Evaluador',a:'Finalizó',e:'Evaluación #0012',d:'Granja La Esperanza · 81,0 % Alto'},
+      {f:'08/10/2026 11:05',u:'Deisy Basto',r:'Administrador',a:'Inactivó',e:'Usuario',d:'Marta Ruiz'},
+      {f:'07/10/2026 16:40',u:'Carlos Pérez',r:'Granjero',a:'Consultó',e:'Reporte #0012',d:'Vio el reporte de Granja La Esperanza'},
+      {f:'07/10/2026 15:30',u:'Andrea Gómez',r:'Evaluador',a:'Creó',e:'Evaluación #0012',d:'Granja La Esperanza · Metodología ICA v2.0'},
+      {f:'06/10/2026 10:12',u:'Deisy Basto',r:'Administrador',a:'Creó',e:'Finca',d:'Cunícola El Roble'}]
+  };
+  var $=function(s,el){return (el||document).querySelector(s)};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var fmt=function(n){return n.toLocaleString('es-CO')};
+  function now(){var d=new Date(),p=function(n){return String(n).padStart(2,'0')};return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes())}
+  function log(a,e,d){st.aud.unshift({f:now(),u:ADMIN.nombre,r:ADMIN.rol,a:a,e:e,d:d})}
+  function tipo(h){return h<=10?'Pequeño':(h<=100?'Mediano':'Intensivo')}
+  function total(inv){return inv.reduce(function(a,b){return a+(+b||0)},0)}
+  var toastT;
+  function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true},2600)}
+  var ic={
+    edit:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+    del:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+    eye:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+  };
+  function head(t,p,req){return '<div class="head"><div><h1>'+t+'</h1><p>'+p+'</p></div><span class="req">'+req+'</span></div>'}
+
+  /* ---------- USUARIOS ---------- */
+  function vUsuarios(){
+    var q=st.q.toLowerCase();
+    var list=st.usuarios.filter(function(u){
+      return (!q||(u.nombres+' '+u.apellidos+' '+u.correo).toLowerCase().indexOf(q)>=0)&&(!st.fRol||u.rol===st.fRol)&&(!st.fEstado||(st.fEstado==='Activo')===u.activo)});
+    var cards=Object.keys(ROLES).map(function(r){var n=st.usuarios.filter(function(u){return u.rol===r&&u.activo}).length;
+      return '<div class="card"><b>'+r+'</b><span>'+ROLES[r]+'</span><span><span class="num">'+n+'</span> activos</span></div>'}).join('');
+    var rows=list.map(function(u){return '<tr><td><b>'+esc(u.nombres+' '+u.apellidos)+'</b></td><td>'+esc(u.correo)+'</td><td><span class="tag">'+u.rol+'</span></td><td>'+(u.activo?'<span class="chip on">Activo</span>':'<span class="chip off">Inactivo</span>')+'</td><td>'+esc(u.acceso)+'</td><td class="act"><span class="act-row"><button class="icon-btn" type="button" data-act="editU" data-id="'+u.id+'" aria-label="Editar '+esc(u.nombres)+'">'+ic.edit+'</button><button class="btn sm" type="button" data-act="toggleU" data-id="'+u.id+'">'+(u.activo?'Inactivar':'Activar')+'</button></span></td></tr>'}).join('');
+    return head('Usuarios','Crea, edita, activa e inactiva usuarios. Los usuarios no se eliminan: se inactivan para conservar la trazabilidad.','RF02 · RF03 · RF04 · RNF07')
+    +'<div class="cards">'+cards+'</div>'
+    +'<div class="toolbar"><label class="field grow" for="q">BUSCAR<input class="control" id="q" type="search" placeholder="Nombre o correo" value="'+esc(st.q)+'"></label>'
+    +'<label class="field" for="fRol">ROL<select class="control" id="fRol"><option value="">Todos</option><option'+(st.fRol==='Evaluador'?' selected':'')+'>Evaluador</option><option'+(st.fRol==='Granjero'?' selected':'')+'>Granjero</option></select></label>'
+    +'<label class="field" for="fEstado">ESTADO<select class="control" id="fEstado"><option value="">Todos</option><option'+(st.fEstado==='Activo'?' selected':'')+'>Activo</option><option'+(st.fEstado==='Inactivo'?' selected':'')+'>Inactivo</option></select></label>'
+    +'<button class="btn primary" type="button" data-act="newU">+ Nuevo usuario</button></div>'
+    +'<div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Último acceso</th><th class="act">Acciones</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6" class="empty">No hay resultados para tu búsqueda.</td></tr>')+'</tbody></table></div>'
+    +'<div class="pager"><span>Mostrando '+list.length+' de '+st.usuarios.length+' usuarios</span></div>';
+  }
+  function formUsuario(u){
+    var e=!!u; u=u||{nombres:'',apellidos:'',correo:'',rol:'Evaluador',doc:'',activo:true};
+    openModal('<header><h2>'+(e?'Editar usuario':'Nuevo usuario')+'</h2><button class="icon-btn" type="button" data-close aria-label="Cerrar">✕</button></header>'
+    +'<form id="fu" novalidate><div class="body">'
+    +'<div class="grid2">'+fld('nombres','Nombres',u.nombres,'Ej.: Andrea',true)+fld('apellidos','Apellidos',u.apellidos,'Ej.: Gómez',true)+'</div>'
+    +fld('correo','Correo institucional',u.correo,'nombre@ucc.edu.co',true,'email')
+    +'<div class="grid2"><label class="f" for="rol">Rol *<select class="control" id="rol">'+Object.keys(ROLES).map(function(r){return '<option'+(u.rol===r?' selected':'')+'>'+r+'</option>'}).join('')+'</select></label>'+fld('doc','Documento',u.doc,'N.º de documento',false)+'</div>'
+    +'<label class="switch"><input type="checkbox" id="activo"'+(u.activo?' checked':'')+'> Usuario activo</label>'
+    +'<div class="info">'+(e?'Último acceso: '+esc(u.acceso)+' · Creado el '+esc(u.creado):'Se enviará un correo para que el usuario cree su contraseña.')+'</div>'
+    +'<small style="color:var(--muted)">* Campos obligatorios</small></div>'
+    +'<footer><button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="submit">'+(e?'Guardar cambios':'Guardar usuario')+'</button></footer></form>');
+    $('#fu').addEventListener('submit',function(ev){ev.preventDefault();
+      var v={nombres:val('nombres'),apellidos:val('apellidos'),correo:val('correo'),rol:$('#rol').value,doc:val('doc'),activo:$('#activo').checked};
+      var ok=true;
+      ok=req('nombres',v.nombres,'Escribe los nombres.')&ok; ok=req('apellidos',v.apellidos,'Escribe los apellidos.')&ok;
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.correo)){setErr('correo','Escribe un correo válido, por ejemplo nombre@ucc.edu.co.');ok=false}
+      else if(st.usuarios.some(function(x){return x.correo.toLowerCase()===v.correo.toLowerCase()&&(!e||x.id!==u.id)})){setErr('correo','Ya existe un usuario con este correo.');ok=false} else setErr('correo','');
+      if(!ok)return;
+      if(e){Object.assign(u,v);log('Editó','Usuario',v.nombres+' '+v.apellidos);toast('Usuario actualizado')}
+      else{st.usuarios.unshift(Object.assign({id:++nextId,acceso:'Nunca',creado:now().slice(0,10)},v));log('Creó','Usuario',v.nombres+' '+v.apellidos+' · '+v.rol);toast('Usuario creado')}
+      closeModal();render()});
+  }
+
+  /* ---------- FINCAS ---------- */
+  var GRUPOS=['Hembras reproductoras','Machos reproductores','Reemplazo','Levante y engorde','Gazapos lactantes'];
+  function vFincas(){
+    var q=st.q.toLowerCase();
+    var list=st.fincas.filter(function(f){return (!q||(f.nombre+' '+f.vereda).toLowerCase().indexOf(q)>=0)&&(!st.fMun||f.mun===st.fMun)&&(!st.fTipo||tipo(f.inv[0])===st.fTipo)});
+    var muns=[...new Set(st.fincas.map(function(f){return f.mun}))];
+    var rows=list.map(function(f){var t=tipo(f.inv[0]);return '<tr><td><b>'+esc(f.nombre)+'</b>'+(f.activa?'':' <span class="chip off">Inactiva</span>')+'</td><td>'+esc(f.depto+' · '+f.mun+' · Vda. '+f.vereda)+'</td><td><span class="tag '+(t==='Pequeño'?'pequeno':t==='Intensivo'?'intensivo':'')+'">'+t+'</span></td><td class="num">'+fmt(total(f.inv))+'</td><td class="num">'+f.evals+'</td><td class="act"><span class="act-row"><button class="icon-btn" type="button" data-act="viewF" data-id="'+f.id+'" aria-label="Ver '+esc(f.nombre)+'">'+ic.eye+'</button><button class="icon-btn" type="button" data-act="editF" data-id="'+f.id+'" aria-label="Editar '+esc(f.nombre)+'">'+ic.edit+'</button><button class="icon-btn" type="button" data-act="delF" data-id="'+f.id+'" aria-label="Eliminar '+esc(f.nombre)+'">'+ic.del+'</button></span></td></tr>'}).join('');
+    return head('Fincas','Registra, consulta, edita y elimina fincas cunícolas con su ubicación e inventario de conejos por grupo etario.','RF05 · RF06 · RF08 · RF33')
+    +'<div class="toolbar"><label class="field grow" for="q">BUSCAR<input class="control" id="q" type="search" placeholder="Nombre de la finca o vereda" value="'+esc(st.q)+'"></label>'
+    +'<label class="field" for="fMun">MUNICIPIO<select class="control" id="fMun"><option value="">Todos</option>'+muns.map(function(m){return '<option'+(st.fMun===m?' selected':'')+'>'+m+'</option>'}).join('')+'</select></label>'
+    +'<label class="field" for="fTipo">TIPO DE PRODUCTOR<select class="control" id="fTipo"><option value="">Todos</option>'+['Pequeño','Mediano','Intensivo'].map(function(t){return '<option'+(st.fTipo===t?' selected':'')+'>'+t+'</option>'}).join('')+'</select></label>'
+    +'<button class="btn primary" type="button" data-act="newF">+ Nueva finca</button></div>'
+    +'<div class="table-wrap"><table><thead><tr><th>Finca</th><th>Ubicación</th><th>Tipo de productor</th><th class="num">Conejos</th><th class="num">Evaluaciones</th><th class="act">Acciones</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6" class="empty">No hay resultados para tu búsqueda.</td></tr>')+'</tbody></table></div>'
+    +'<div class="pager"><span>Mostrando '+list.length+' de '+st.fincas.length+' fincas</span></div>'
+    +'<div class="note"><b>Regla de eliminación:</b> una finca sin evaluaciones se elimina; una finca con evaluaciones solo se inactiva, para no perder el histórico ni la auditoría.</div>';
+  }
+  function formFinca(f,soloVer){
+    var e=!!f; f=f||{nombre:'',sigma:'',resp:'',depto:'Santander',mun:'Piedecuesta',vereda:'',dir:'',lat:'',lon:'',inv:[0,0,0,0,0]};
+    var dis=soloVer?' disabled':'';
+    openModal('<header><h2>'+(soloVer?esc(f.nombre):e?'Editar finca':'Nueva finca')+'</h2><button class="icon-btn" type="button" data-close aria-label="Cerrar">✕</button></header>'
+    +'<form id="ff" novalidate><div class="body">'
+    +'<div class="grid2">'+fld('nombre','Nombre de la finca',f.nombre,'Ej.: Granja La Esperanza',true,'text',dis)+fld('sigma','Registro SIGMA',f.sigma,'N.º de predio (opcional)',false,'text',dis)+'</div>'
+    +fld('resp','Responsable del predio',f.resp,'Nombre completo',true,'text',dis)
+    +'<div class="grid3"><label class="f" for="depto">Departamento *<select class="control" id="depto"'+dis+'>'+Object.keys(MUNICIPIOS).map(function(d){return '<option'+(f.depto===d?' selected':'')+'>'+d+'</option>'}).join('')+'</select></label>'
+    +'<label class="f" for="mun">Municipio *<select class="control" id="mun"'+dis+'>'+MUNICIPIOS[f.depto].map(function(m){return '<option'+(f.mun===m?' selected':'')+'>'+m+'</option>'}).join('')+'</select></label>'
+    +fld('vereda','Vereda',f.vereda,'Vereda',true,'text',dis)+'</div>'
+    +'<div class="grid3">'+fld('dir','Dirección',f.dir,'Km, finca, referencia',true,'text',dis)+fld('lat','Latitud',f.lat,'Opcional',false,'text',dis)+fld('lon','Longitud',f.lon,'Opcional',false,'text',dis)+'</div>'
+    +'<div class="f">Inventario de conejos por grupo etario *<div class="grid5">'+GRUPOS.map(function(g,i){return '<label class="f" for="inv'+i+'"><small>'+g+'</small><input class="control inv" id="inv'+i+'" type="number" min="0" step="1" inputmode="numeric" value="'+f.inv[i]+'"'+dis+' style="text-align:right"></label>'}).join('')+'</div><span class="msg" id="m-inv"></span></div>'
+    +'<div class="calc" id="calc"></div></div>'
+    +'<footer>'+(soloVer?'<button class="btn primary" type="button" data-close>Cerrar</button>':'<button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="submit">'+(e?'Guardar cambios':'Guardar finca')+'</button>')+'</footer></form>');
+    var upd=function(){var inv=[].map.call(document.querySelectorAll('.inv'),function(i){return +i.value||0});$('#calc').innerHTML='Total: <b>'+fmt(total(inv))+' conejos</b> · Tipo de productor calculado: <b>'+tipo(inv[0])+'</b> ('+inv[0]+' hembras reproductoras · norma §5.2: Pequeño hasta 10, Mediano 11 a 100, Intensivo más de 100)'};
+    upd(); document.querySelectorAll('.inv').forEach(function(i){i.addEventListener('input',upd)});
+    $('#depto').addEventListener('change',function(){$('#mun').innerHTML=MUNICIPIOS[this.value].map(function(m){return '<option>'+m+'</option>'}).join('')});
+    $('#ff').addEventListener('submit',function(ev){ev.preventDefault();
+      var v={nombre:val('nombre'),sigma:val('sigma'),resp:val('resp'),depto:$('#depto').value,mun:$('#mun').value,vereda:val('vereda'),dir:val('dir'),lat:val('lat'),lon:val('lon'),inv:[].map.call(document.querySelectorAll('.inv'),function(i){return i.value})};
+      var ok=true;
+      ok=req('nombre',v.nombre,'Escribe el nombre de la finca.')&ok; ok=req('resp',v.resp,'Escribe quién responde por el predio.')&ok;
+      ok=req('vereda',v.vereda,'Escribe la vereda.')&ok; ok=req('dir',v.dir,'Escribe una dirección o referencia.')&ok;
+      var badInv=v.inv.some(function(x){return x===''||!/^\d+$/.test(x)});
+      $('#m-inv').textContent=badInv?'Usa solo números enteros, sin decimales ni negativos.':'';
+      if(!badInv&&total(v.inv.map(Number))===0){$('#m-inv').textContent='La finca debe tener al menos un conejo.';badInv=true}
+      if(badInv)ok=false;
+      if(!ok)return;
+      v.inv=v.inv.map(Number);
+      if(e){Object.assign(f,v);log('Editó','Finca',v.nombre);toast('Finca actualizada')}
+      else{st.fincas.unshift(Object.assign({id:++nextId,evals:0,activa:true},v));log('Creó','Finca',v.nombre+' · '+tipo(v.inv[0]));toast('Finca creada')}
+      closeModal();render()});
+  }
+  function delFinca(f){
+    var tiene=f.evals>0;
+    openModal('<header><h2>'+(tiene?'Inactivar finca':'Eliminar finca')+'</h2><button class="icon-btn" type="button" data-close aria-label="Cerrar">✕</button></header>'
+    +'<div class="body"><div class="warn"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg><div><p style="margin:0 0 8px">¿Seguro que quieres '+(tiene?'inactivar':'eliminar')+' <b>'+esc(f.nombre)+'</b>?</p><p style="margin:0;font-size:14px;color:var(--muted)">'+(tiene?'Esta finca tiene '+f.evals+' evaluación'+(f.evals>1?'es':'')+'. No se puede eliminar: se inactiva y se conservan su histórico y su auditoría.':'Esta finca no tiene evaluaciones. Se eliminará de forma permanente y el cambio quedará en Auditoría.')+'</p></div></div></div>'
+    +'<footer><button class="btn" type="button" data-close>Cancelar</button><button class="btn danger" type="button" id="okDel">'+(tiene?'Inactivar finca':'Eliminar finca')+'</button></footer>','narrow');
+    $('#okDel').addEventListener('click',function(){
+      if(tiene){f.activa=false;log('Inactivó','Finca',f.nombre);toast('Finca inactivada')}
+      else{st.fincas=st.fincas.filter(function(x){return x!==f});log('Eliminó','Finca',f.nombre);toast('Finca eliminada')}
+      closeModal();render()});
+  }
+
+  /* ---------- AUDITORIA ---------- */
+  function audFiltrada(){var q=st.aQ.toLowerCase();return st.aud.filter(function(r){return (!q||(r.u+' '+r.e+' '+r.d).toLowerCase().indexOf(q)>=0)&&(!st.aAcc||r.a===st.aAcc)})}
+  function vAuditoria(){
+    var list=audFiltrada();
+    var acciones=[...new Set(st.aud.map(function(r){return r.a}))];
+    var rows=list.map(function(r){return '<tr><td style="white-space:nowrap;font-variant-numeric:tabular-nums">'+r.f+'</td><td><b>'+esc(r.u)+'</b></td><td>'+r.r+'</td><td><span class="tag">'+r.a+'</span></td><td>'+esc(r.e)+'</td><td>'+esc(r.d)+'</td></tr>'}).join('');
+    return head('Auditoría','Registro de creación, modificación y cierre de evaluaciones y de los cambios de administración. Solo lectura.','RF34 · RNF08')
+    +'<div class="toolbar"><label class="field grow" for="aQ">BUSCAR<input class="control" id="aQ" type="search" placeholder="Usuario, entidad o detalle" value="'+esc(st.aQ)+'"></label>'
+    +'<label class="field" for="aAcc">ACCIÓN<select class="control" id="aAcc"><option value="">Todas</option>'+acciones.map(function(a){return '<option'+(st.aAcc===a?' selected':'')+'>'+a+'</option>'}).join('')+'</select></label>'
+    +'<button class="btn" type="button" data-act="csv">Exportar CSV</button></div>'
+    +'<div class="table-wrap"><table><thead><tr><th>Fecha y hora</th><th>Usuario</th><th>Rol</th><th>Acción</th><th>Entidad</th><th>Detalle</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6" class="empty">No hay registros con esos filtros.</td></tr>')+'</tbody></table></div>'
+    +'<div class="pager"><span>Mostrando '+list.length+' de '+st.aud.length+' registros</span></div>';
+  }
+  function csv(){
+    var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'};
+    var txt=['Fecha y hora,Usuario,Rol,Acción,Entidad,Detalle'].concat(audFiltrada().map(function(r){return [r.f,r.u,r.r,r.a,r.e,r.d].map(q).join(',')})).join('\n');
+    openModal('<header><h2>Exportar CSV</h2><button class="icon-btn" type="button" data-close aria-label="Cerrar">✕</button></header><div class="body"><p style="margin:0">En la app real este botón descarga el archivo. En el prototipo, copia el contenido y pégalo en Excel o en un archivo .csv.</p><label class="f" for="csvtxt">Contenido<textarea class="control" id="csvtxt" rows="10" readonly>'+esc(txt)+'</textarea></label></div><footer><button class="btn" type="button" data-close>Cerrar</button><button class="btn primary" type="button" id="cp">Copiar</button></footer>');
+    $('#cp').addEventListener('click',function(){var t=$('#csvtxt');var done=function(){toast('CSV copiado')};
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value).then(done,function(){t.select();toast('Selecciona y copia con Ctrl + C')})}else{t.select();toast('Selecciona y copia con Ctrl + C')}});
+  }
+
+  /* ---------- helpers ---------- */
+  function fld(id,label,v,ph,required,type,dis){return '<label class="f" id="w-'+id+'" for="'+id+'">'+label+(required?' *':'')+'<input class="control" id="'+id+'" type="'+(type||'text')+'" value="'+esc(v)+'" placeholder="'+ph+'"'+(dis||'')+'><span class="msg" id="m-'+id+'"></span></label>'}
+  function val(id){var el=$('#'+id);return el?el.value.trim():''}
+  function setErr(id,m){var w=$('#w-'+id);if(!w)return;w.classList.toggle('err',!!m);$('#m-'+id).textContent=m}
+  function req(id,v,m){if(!v){setErr(id,m);return false}setErr(id,'');return true}
+  var lastFocus;
+  function openModal(html,cls){lastFocus=document.activeElement;var r=$('#modal-root');r.innerHTML='<div class="overlay"><div class="dialog '+(cls||'')+'" role="dialog" aria-modal="true">'+html+'</div></div>';
+    var first=r.querySelector('input:not([disabled]),select:not([disabled]),button');if(first)first.focus();
+    r.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',closeModal)});
+    r.querySelector('.overlay').addEventListener('click',function(e){if(e.target===this)closeModal()})}
+  function closeModal(){$('#modal-root').innerHTML='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  document.addEventListener('keydown',function(e){
+    if(!$('#modal-root').innerHTML)return;
+    if(e.key==='Escape'){closeModal();return}
+    if(e.key==='Tab'){var f=[].filter.call($('#modal-root').querySelectorAll('button,input,select,textarea'),function(x){return !x.disabled});if(!f.length)return;
+      if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}}
+  });
+
+  function render(){
+    document.querySelectorAll('.nav-btn').forEach(function(b){b.setAttribute('aria-current',b.dataset.sec===st.sec?'page':'false')});
+    var m=$('#main');
+    m.innerHTML=(st.sec==='usuarios'?vUsuarios():st.sec==='fincas'?vFincas():vAuditoria())+'<p class="foot">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA. Los datos son de ejemplo.</p>';
+    var bind=function(id,key){var el=$('#'+id);if(!el)return;el.addEventListener(el.tagName==='SELECT'?'change':'input',function(){st[key]=el.value;var pos=el.selectionStart;render();var n=$('#'+id);n.focus();if(n.setSelectionRange&&n.type==='search')n.setSelectionRange(pos,pos)})};
+    bind('q','q');bind('fRol','fRol');bind('fEstado','fEstado');bind('fMun','fMun');bind('fTipo','fTipo');bind('aQ','aQ');bind('aAcc','aAcc');
+  }
+  $('#main').addEventListener('click',function(e){var b=e.target.closest('[data-act]');if(!b)return;var id=+b.dataset.id;
+    var u=st.usuarios.find(function(x){return x.id===id}),f=st.fincas.find(function(x){return x.id===id});
+    switch(b.dataset.act){
+      case 'newU':formUsuario();break;
+      case 'editU':formUsuario(u);break;
+      case 'toggleU':u.activo=!u.activo;log(u.activo?'Activó':'Inactivó','Usuario',u.nombres+' '+u.apellidos);toast(u.activo?'Usuario activado':'Usuario inactivado');render();break;
+      case 'newF':formFinca();break;
+      case 'editF':formFinca(f);break;
+      case 'viewF':formFinca(f,true);break;
+      case 'delF':delFinca(f);break;
+      case 'csv':csv();break;
+    }});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.addEventListener('click',function(){st.sec=b.dataset.sec;st.q='';st.fRol=st.fEstado=st.fMun=st.fTipo='';render();$('#main').focus()})});
+  $('#main').setAttribute('tabindex','-1');
+  $('#logout').addEventListener('click',function(){location.href='Ingreso%20Bienestar%20Cun%C3%ADcola.html'});
+  render();
+})();
+</script>
+
+</body></html>

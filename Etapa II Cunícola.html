@@ -1,0 +1,331 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Etapa II Cunícola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Work+Sans:wght@500;600;700&display=swap">
+<style>
+/* Layout: barra superior con pasos; pestañas MBR/MBA; lista de indicadores a la izquierda + detalle a la derecha; en celular la lista pasa a un selector */
+:root{
+  --green:#0b7a3e; --green-dark:#075a2d; --green-soft:#e6f2ea; --yellow:#f2c200; --yellow-soft:#fff6d1;
+  --bg:#f6f8f6; --surface:#ffffff; --surface-2:#eef3ef; --fg:#14231a; --muted:#4f6157; --line:#cbd8cf; --line-strong:#14231a;
+  --danger:#a3271b; --danger-soft:#fbe9e7; --warn:#8a5a00; --orange:#d9774a; --on-green:#ffffff;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Work Sans','Atkinson Hyperlegible',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c; --yellow-soft:#3a3214;
+  --bg:#0f1712; --surface:#16211a; --surface-2:#1c2a21; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --warn:#f2c94c; --on-green:#0f1712; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c; --yellow-soft:#3a3214;
+  --bg:#0f1712; --surface:#16211a; --surface-2:#1c2a21; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --warn:#f2c94c; --on-green:#0f1712; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.topbar{background:var(--green-dark);color:#fff;border-bottom:4px solid var(--yellow);position:sticky;top:0;z-index:5}
+.tb1{display:flex;align-items:center;gap:14px;padding:12px 24px 10px}
+.back{width:42px;height:42px;border-radius:8px;border:2px solid #fff;color:#fff;display:grid;place-items:center;flex-shrink:0;text-decoration:none}
+.back:hover{background:rgba(255,255,255,.12)}
+.ttl{min-width:0;margin-right:auto}
+.ttl b{font-family:var(--font-head);font-size:20px;display:block;line-height:1.2}
+.ttl span{font-size:14px;color:#d6e8dc}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:700;font-size:15px;color:#e3efe7;white-space:nowrap}
+.mark{width:28px;height:28px;border-radius:7px;background:var(--yellow);color:#14231a;display:grid;place-items:center}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 24px 12px;list-style:none;margin:0}
+.steps li{font-size:13px;color:#cfe3d6;display:flex;flex-direction:column;gap:6px;min-width:0}
+.steps li::before{content:"";height:6px;border-radius:3px;background:rgba(255,255,255,.22)}
+.steps li.on{color:#fff;font-weight:700}
+.steps li.on::before{background:var(--yellow)}
+.steps li.done::before{background:#fff}
+.steps li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{max-width:1280px;margin:0 auto;padding:22px 24px 120px}
+h1{margin:0 0 14px;font-family:var(--font-head);font-size:28px}
+.scen{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:10px 14px;border:1.5px dashed var(--line);border-radius:10px;background:var(--surface)}
+.scen b{font-size:14px}
+.segb{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--line-strong);border-radius:8px;overflow:hidden;flex:1 1 300px}
+.segb button{border:0;border-right:1px solid var(--line);background:var(--surface);padding:8px 4px;font-size:15px;cursor:pointer}
+.segb button:last-child{border-right:0}
+.segb button[aria-pressed="true"]{background:var(--green);color:var(--on-green);font-weight:700}
+.link{background:none;border:0;padding:0;color:var(--green);font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.tab{display:flex;flex-direction:column;gap:6px;text-align:left;padding:12px 16px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer}
+.tab[aria-selected="true"]{border-color:var(--green);background:var(--green-soft)}
+.tab .tt{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.tab b{font-family:var(--font-head);font-size:20px}
+.tab small{color:var(--muted);font-size:14px}
+.prog{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--green)}
+.work{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:start}
+.list{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;overflow:hidden;position:sticky;top:150px;max-height:calc(100vh - 260px);overflow-y:auto}
+.it{width:100%;display:flex;align-items:center;gap:10px;padding:10px 14px;border:0;border-bottom:1px solid var(--line);background:var(--surface);text-align:left;cursor:pointer;min-height:56px}
+.it:last-child{border-bottom:0}
+.it .n{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;font-size:13px;font-weight:700;flex-shrink:0}
+.it .nm{flex:1;min-width:0;font-size:15px;line-height:1.25}
+.it .nm small{display:block;color:var(--muted);font-size:12px}
+.it[aria-current="true"]{background:var(--green-soft);box-shadow:inset 5px 0 0 var(--green)}
+.it.na .nm{color:var(--muted)}
+.chip{flex-shrink:0;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;border:1.5px solid var(--line)}
+.c100{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.c55{background:var(--yellow-soft);border-color:var(--yellow);color:var(--fg)}
+.c20{background:var(--danger-soft);border-color:var(--danger);color:var(--danger)}
+.c0{background:var(--danger);border-color:var(--danger);color:#fff}
+.cna{border-style:dashed;color:var(--muted)}
+.mobsel{display:none}
+.det{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.dh{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.det h2{margin:4px 0 2px;font-family:var(--font-head);font-size:22px}
+.meta{color:var(--muted);font-size:14px}
+.norma{font-size:12px;border:1px solid var(--line-strong);border-radius:6px;padding:3px 8px;white-space:nowrap;color:var(--muted)}
+.rev{background:var(--surface-2);border-radius:10px;padding:12px 16px}
+.rev b{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.rev ul{margin:6px 0 0;padding-left:20px}
+.cond{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1.5px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:15px}
+.cond label{display:flex;gap:8px;align-items:center;font-weight:700;cursor:pointer}
+.cond input{width:20px;height:20px;accent-color:var(--green)}
+.naBox{background:var(--yellow-soft);border:1px solid var(--yellow);border-radius:10px;padding:12px 14px}
+.helper{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--surface-2);border-radius:10px;padding:10px 14px;font-size:15px}
+.helper input{width:84px;height:40px;border:1.5px solid var(--line-strong);border-radius:8px;text-align:center;background:var(--surface)}
+.helper b{font-family:var(--font-head);font-size:18px}
+.opts{display:flex;flex-direction:column;gap:8px;border:0;margin:0;padding:0}
+.opts legend{font-weight:700;margin-bottom:8px;padding:0}
+.opt{position:relative;display:grid;grid-template-columns:28px 78px minmax(0,1fr);gap:10px;align-items:start;padding:12px 14px;border:1.5px solid var(--line-strong);border-radius:10px;cursor:pointer;background:var(--surface)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .rd{width:22px;height:22px;border-radius:50%;border:2px solid var(--line-strong);display:grid;place-items:center;margin-top:1px}
+.opt .pt{font-family:var(--font-head);font-weight:700;font-size:18px;white-space:nowrap}
+.opt:has(input:checked){background:var(--green);border-color:var(--green);color:var(--on-green)}
+.opt:has(input:checked) .rd{border-color:var(--on-green)}
+.opt:has(input:checked) .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--on-green)}
+.opt:has(input:focus-visible){outline:3px solid var(--yellow);outline-offset:2px}
+.opts[disabled]{opacity:.45}
+.opts[disabled] .opt{cursor:not-allowed}
+.ev{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ph{width:88px;height:66px;border-radius:8px;background:var(--surface-2);border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--muted);position:relative}
+.ph button{position:absolute;top:2px;right:2px;width:22px;height:22px;border-radius:50%;border:0;background:var(--fg);color:var(--bg);font-size:13px;line-height:1;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 18px;border-radius:8px;border:2px solid var(--green);background:var(--surface);color:var(--green);font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.primary{background:var(--green);color:var(--on-green)}
+.btn.primary:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.dash{border-style:dashed}
+textarea{width:100%;min-height:84px;border:1.5px solid var(--line-strong);border-radius:8px;padding:10px 12px;background:var(--surface);resize:vertical}
+.f{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}
+.nav{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 24px;display:flex;justify-content:flex-end;align-items:center;gap:16px;z-index:6}
+.bar .stat{margin-right:auto;font-size:14px;color:var(--muted)}
+.legal{margin-top:24px;font-size:12px;color:var(--muted)}
+.scrim{position:fixed;inset:0;background:rgba(10,20,14,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.scrim.open{display:flex}
+.modal{background:var(--surface);border-radius:14px;border-top:6px solid var(--green);width:100%;max-width:540px;max-height:calc(100vh - 32px);overflow:auto;padding:24px;display:flex;flex-direction:column;gap:14px}
+.modal h2{margin:0;font-family:var(--font-head);font-size:22px}
+.modal ul{margin:0;padding-left:20px}
+.row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:10px;font-weight:700;display:none;z-index:30;max-width:calc(100vw - 32px)}
+.toast.show{display:block}
+/* resultado */
+.res-ok{display:flex;gap:12px;align-items:center;background:var(--green-soft);border:1.5px solid var(--green);border-radius:10px;padding:12px 16px;margin-bottom:18px;color:var(--green)}
+.res-ok div{display:flex;flex-direction:column;color:var(--fg)}
+.res-ok span{font-size:14px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.kpi span{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi b{font-family:var(--font-head);font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi small{font-size:13px;color:var(--muted)}
+.kpi.main{border:2px solid var(--green);background:var(--green-soft)}
+.kpi.main b{color:var(--green)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.blk{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.blk h2{margin:2px 0 0;font-family:var(--font-head);font-size:19px}
+.dist{display:flex;height:16px;border-radius:8px;overflow:hidden;background:var(--surface-2)}
+.dist i{display:block;height:100%}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend span::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--c)}
+.rl{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.rl:last-child{border-bottom:0}
+.rl span{min-width:0}
+.crit{border-left:4px solid var(--danger);background:var(--danger-soft);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.crit small{color:var(--muted)}
+.next{margin-top:20px;background:var(--surface);border:2px solid var(--green);border-radius:12px;padding:16px 18px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.next div:first-child{display:flex;flex-direction:column;gap:2px;max-width:62ch}
+.next span{color:var(--muted);font-size:15px}
+.formula{font-size:14px;color:var(--muted);background:var(--surface-2);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums}
+@media (max-width:980px){
+  .work{grid-template-columns:1fr}.list{display:none}
+  .mobsel{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}
+  .mobsel select{height:48px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:0 10px;font-size:16px;font-weight:400}
+  .grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .tb1{padding:10px 16px 8px}.steps{padding:0 16px 10px;gap:6px}.brand{display:none}
+  .steps li:not(.on) span{visibility:hidden}.steps li.on span{overflow:visible;font-size:11px}
+  .ttl b{font-size:17px}.ttl span{font-size:13px}
+  main{padding:16px 16px 120px} h1{font-size:23px}
+  .tabs{grid-template-columns:1fr 1fr;gap:8px}.tab{padding:10px 12px}.tab b{font-size:17px}.tab small{font-size:12px}
+  .det{padding:16px}
+  .opt{grid-template-columns:24px 72px minmax(0,1fr);padding:10px 12px;gap:8px}.opt .pt{font-size:16px}
+  .bar{padding:10px 16px}.bar .stat{display:none}.bar .btn{width:100%}
+  .next .row{width:100%}.next .btn{flex:1}
+  .nav .btn{flex:1;padding:0 10px}
+}
+</style>
+
+<header class="topbar">
+  <div class="tb1">
+    <a class="back" href="Mis%20visitas%20Cun%C3%ADcola.html" aria-label="Volver a Mis visitas"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+    <div class="ttl"><b id="gname">Granja La Esperanza</b><span id="sub"></span></div>
+    <div class="brand"><span class="mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 3c-1 3-1 6 1 8M15 3c1 3 1 6-1 8"/><circle cx="12" cy="15" r="5"/></svg></span>Bienestar Cunícola</div>
+  </div>
+  <ol class="steps" aria-label="Etapas de la evaluación" id="steps">
+    <li class="done"><span>I · Reunión inicial ✓</span></li>
+    <li class="on" aria-current="step"><span>II · Inspección del predio y del animal</span></li>
+    <li><span>III · Inspección documental</span></li>
+    <li><span>IV · Resultados</span></li>
+  </ol>
+</header>
+
+<main id="main"></main>
+<div class="bar" id="bar"><span class="stat" id="stat"></span><button class="btn primary" id="close">Cerrar Etapa II y continuar</button></div>
+<div class="scrim" id="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt" id="modal"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var IND={"MBR": [{"nombre": "Estado y acceso a comederos", "sec": "7.1.1", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los comederos se encuentran limpios?", "¿Los comederos se encuentran en buenas condiciones de mantenimiento?", "¿Los comederos facilitan el acceso al alimento?"], "esc": [{"p": 100, "c": "El 100% de los comederos observados están limpios, en buen estado de conservación y facilitan el acceso al alimento."}, {"p": 55, "c": "Más del 80% de los comederos observados cumplen todas las condiciones."}, {"p": 20, "c": "Entre el 61% y el 80% de los comederos observados cumplen todas las condiciones."}, {"p": 0, "c": "El 60% o menos de los comederos observados cumplen."}]}, {"nombre": "Alimento balanceado", "sec": "7.1.2", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los alimentos balanceados comerciales cuentan con registro ICA vigente?", "¿Las áreas de almacenamiento de los alimentos evitan su deterioro y contaminación?"], "esc": [{"p": 100, "c": "Se cumplen las dos condiciones establecidas para la evaluación."}, {"p": 55, "c": "Solo se cumple una de las dos condiciones establecidas para la evaluación."}, {"p": 0, "c": "No se cumple ninguna de las dos condiciones establecidas para la evaluación."}]}, {"nombre": "Acceso a forraje", "sec": "7.1.3", "metodo": "Inspección visual sujeta a muestreo", "cond": "Sistemas extensivos y semi intensivos", "preg": ["¿Los animales tienen oferta de forraje?"], "esc": [{"p": 100, "c": "Existe oferta de forraje en pasteras o comederos."}, {"p": 55, "c": "Existe oferta de forraje, pero no se cuenta con comederos o pasteras."}, {"p": 0, "c": "No existe oferta de forraje."}]}, {"nombre": "Acceso a alimento en gazapos", "sec": "7.1.4", "metodo": "Inspección visual sujeta a muestreo y verificación de registros de edad al destete", "cond": "Sistemas con cría", "preg": ["¿Se garantiza y controla que los gazapos tienen acceso a tomar leche de su madre mínimo hasta los 30 días de edad?", "¿Los gazapos tienen acceso a alimento sólido a partir de los 16 días de edad?"], "esc": [{"p": 100, "c": "Se garantiza y se lleva control de que los gazapos tengan acceso a la leche materna desde su nacimiento y mínimo hasta los 30 días de edad, y a alimento sólido desde los 16 días de edad."}, {"p": 0, "c": "Los gazapos no tienen acceso a la leche materna desde su nacimiento ni a alimento sólido desde los 21 días de edad."}]}, {"nombre": "Acceso y disponibilidad al agua de bebida", "sec": "7.1.5", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Se dispone de una cantidad suficiente de chupos o bebederos?", "¿Los animales beben agua a voluntad?", "¿Los animales pueden acceder con facilidad al agua de bebida?", "¿La calidad del agua es aceptable para los animales?"], "esc": [{"p": 100, "c": "Todos los bebederos están llenos o los chupos tienen flujo de agua, en número acorde a los animales alojados, y todos los animales acceden con facilidad a agua limpia y de buena calidad."}, {"p": 55, "c": "Más del 80% de los bebederos están llenos o los chupos tienen flujo de agua, en número acorde a los animales, y todos acceden con facilidad a agua limpia y de buena calidad."}, {"p": 20, "c": "Entre el 50% y 80% de los bebederos están llenos o los chupos tienen flujo de agua, en número acorde a los animales, y todos acceden con facilidad a agua limpia y de buena calidad."}, {"p": 0, "c": "Los animales no tienen acceso a agua limpia y de buena calidad."}]}, {"nombre": "Estado de bebederos o chupos", "sec": "7.1.6", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿El estado de los bebederos o chupos es apropiado para su uso?"], "esc": [{"p": 100, "c": "Todos los chupos o bebederos inspeccionados están en buen estado de funcionamiento, conservación y aseo."}, {"p": 55, "c": "Más del 80% de los chupos o bebederos inspeccionados están en buen estado de funcionamiento, conservación y aseo."}, {"p": 20, "c": "Entre el 70% y 80% de los chupos o bebederos inspeccionados están en buen estado de funcionamiento, conservación y aseo."}, {"p": 0, "c": "Menos del 70% de los chupos o bebederos inspeccionados están en buen estado de funcionamiento, conservación y aseo."}]}, {"nombre": "Altura de bebederos o chupos", "sec": "7.1.7", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los bebederos se encuentran a una altura apropiada?"], "esc": [{"p": 100, "c": "Todos los bebederos para adultos están a una altura apropiada y los de gazapos a la altura recomendada."}, {"p": 55, "c": "Más del 80% de los bebederos para adultos están a una altura apropiada y los de gazapos a una altura aceptable."}, {"p": 20, "c": "Entre el 70% y 80% de los bebederos para adultos están a una altura apropiada y los de gazapos a una altura aceptable."}, {"p": 0, "c": "Menos del 70% de los bebederos para adultos están a una altura apropiada y los de gazapos por encima de la altura aceptable."}]}, {"nombre": "Alojamiento", "sec": "7.1.8", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Cuál es el estado general de mantenimiento de las jaulas y galpones?", "¿Las instalaciones son de fácil limpieza y desinfección?", "¿Existe acumulación de residuos o elementos extraños al interior de jaulas y galpones?"], "esc": [{"p": 100, "c": "Todos los galpones y jaulas observados están en buen estado de conservación y mantenimiento, limpios y sin materiales extraños."}, {"p": 55, "c": "Más del 80% de los galpones y jaulas observados cumplen esas condiciones."}, {"p": 20, "c": "Entre el 60% y 80% de los galpones y jaulas observados cumplen esas condiciones."}, {"p": 0, "c": "Menos del 60% de los galpones y jaulas observados cumplen esas condiciones."}]}, {"nombre": "Reposa patas", "sec": "7.1.9", "metodo": "Inspección visual sujeta a muestreo", "cond": "Predios que usan jaulas", "preg": ["¿Las jaulas cuentan con reposa patas?"], "esc": [{"p": 100, "c": "Las jaulas cuentan con reposa patas en buen estado de mantenimiento y aseo."}, {"p": 55, "c": "Las jaulas cuentan con reposa patas, pero con falta de mantenimiento o aseo."}, {"p": 0, "c": "Las jaulas no cuentan con reposa patas."}]}, {"nombre": "Nidales", "sec": "7.1.10", "metodo": "Inspección visual sujeta a muestreo", "cond": "Sistemas con cría", "preg": ["¿Los nidales cumplen con las características mínimas establecidas?"], "esc": [{"p": 100, "c": "Todos los nidales cumplen con todas las características mínimas establecidas."}, {"p": 55, "c": "Más del 80% de los nidales cumplen con todas las características mínimas."}, {"p": 20, "c": "Entre el 60% y 80% de los nidales cumplen con todas las características mínimas."}, {"p": 0, "c": "Menos del 60% de los nidales cumplen con todas las características mínimas."}]}, {"nombre": "Espacio disponible", "sec": "7.1.11", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales disponen de suficiente espacio? (Tabla 3 de la norma)"], "esc": [{"p": 100, "c": "El espacio disponible se ajusta a los mínimos establecidos o está por encima."}, {"p": 55, "c": "Más del 80% de los espacios revisados se ajustan a los mínimos o están por encima."}, {"p": 20, "c": "Entre el 60% y 80% de los espacios revisados se ajustan a los mínimos o están por encima."}, {"p": 0, "c": "Menos del 60% de los espacios revisados se ajustan a los mínimos o están por encima."}]}, {"nombre": "Altura de las jaulas desde el piso", "sec": "7.1.12", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Las jaulas se encuentran a una altura apropiada desde el suelo (mínimo 60 cm)?"], "esc": [{"p": 100, "c": "Todas las jaulas observadas están a una altura mínima del suelo de 60 cm."}, {"p": 55, "c": "Más del 80% de las jaulas observadas están a una altura mínima de 60 cm."}, {"p": 20, "c": "Entre el 60% y 80% de las jaulas observadas están a una altura mínima de 60 cm."}, {"p": 0, "c": "Menos del 60% de las jaulas observadas están a una altura mínima de 60 cm."}]}, {"nombre": "Iluminación", "sec": "7.1.13", "metodo": "Inspección visual", "cond": "", "preg": ["¿Las instalaciones disponen de iluminación apropiada (natural o artificial) como mínimo durante 11 horas al día?"], "esc": [{"p": 100, "c": "Todas las instalaciones cuentan con iluminación suficiente."}, {"p": 55, "c": "Más del 80% de las instalaciones cuentan con iluminación suficiente."}, {"p": 20, "c": "Entre el 60% y 80% de las instalaciones cuentan con iluminación suficiente."}, {"p": 0, "c": "Menos del 60% de las instalaciones cuentan con iluminación suficiente."}]}, {"nombre": "Ventilación", "sec": "7.1.14", "metodo": "Inspección visual", "cond": "", "preg": ["¿Los galpones disponen de suficiente ventilación?"], "esc": [{"p": 100, "c": "La totalidad del galpón o los galpones cuentan con ventilación suficiente."}, {"p": 55, "c": "Más del 80% de los galpones cuentan con ventilación suficiente."}, {"p": 20, "c": "Entre el 60% y 80% de los galpones cuentan con ventilación suficiente."}, {"p": 0, "c": "Menos del 60% de los galpones cuentan con ventilación suficiente."}]}, {"nombre": "Protección contra depredadores", "sec": "7.1.15", "metodo": "Inspección visual", "cond": "", "preg": ["¿Las instalaciones de la granja permiten proteger a los animales contra depredadores?"], "esc": [{"p": 100, "c": "Las instalaciones están en buen estado de mantenimiento y evitan el ingreso de depredadores a los galpones."}, {"p": 55, "c": "Las instalaciones presentan fallas que permiten el ingreso de depredadores a los galpones."}, {"p": 0, "c": "No existen medidas para proteger a los animales ante el posible ataque de depredadores."}]}], "MBA": [{"nombre": "Comportamiento anormal", "sec": "7.2.1", "metodo": "Inspección visual", "cond": "", "preg": ["¿Los animales presentan comportamientos anormales?"], "esc": [{"p": 100, "c": "Ninguno de los animales evaluados presenta comportamientos anormales o repetitivos."}, {"p": 55, "c": "Hasta el 4% de los animales evaluados presenta comportamientos anormales o repetitivos."}, {"p": 0, "c": "Más del 4% de los animales evaluados presenta comportamientos anormales o repetitivos."}]}, {"nombre": "Animales totalmente estirados", "sec": "7.2.2", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Qué proporción de animales se encuentran totalmente estirados?"], "esc": [{"p": 100, "c": "El 20% o más de los animales observados se encuentran totalmente tumbados."}, {"p": 55, "c": "Entre el 10% y 19% de los animales observados se encuentran totalmente tumbados."}, {"p": 0, "c": "Menos del 10% de los animales observados se encuentran totalmente tumbados."}]}, {"nombre": "Confort térmico", "sec": "7.2.3", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales presentan signos de estrés térmico?"], "esc": [{"p": 100, "c": "Ninguno de los animales observados presenta signos de estrés térmico."}, {"p": 55, "c": "Menos del 5% de los animales observados presenta signos de estrés térmico."}, {"p": 20, "c": "Entre el 5% y 7% de los animales observados presenta signos de estrés térmico."}, {"p": 0, "c": "Más del 7% de los animales observados presenta signos de estrés térmico."}]}, {"nombre": "Torsión del cuello", "sec": "7.2.4", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Qué proporción de animales presenta torsión del cuello moderada o severa?"], "esc": [{"p": 100, "c": "Ninguno de los animales evaluados presenta torsión del cuello."}, {"p": 55, "c": "Hasta el 4% presenta torsión moderada del cuello y ningún animal presenta torsión severa."}, {"p": 20, "c": "Hasta el 4% presenta torsión moderada del cuello o hasta el 2% presenta torsión severa."}, {"p": 0, "c": "Más del 4% presenta torsión moderada del cuello o más del 2% torsión severa."}]}, {"nombre": "Animales mojados", "sec": "7.2.5", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales se encuentran mojados?"], "esc": [{"p": 100, "c": "Ninguno de los animales evaluados se encuentra mojado."}, {"p": 55, "c": "Hasta el 5% de los animales evaluados se encuentran mojados."}, {"p": 20, "c": "Entre el 5% y el 10% de los animales evaluados se encuentran mojados."}, {"p": 0, "c": "Más del 10% de los animales evaluados se encuentran mojados."}]}, {"nombre": "Suciedad", "sec": "7.2.6", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Qué porcentaje de animales se encuentran moderadamente sucios?", "¿Qué porcentaje de animales se encuentran severamente sucios?"], "esc": [{"p": 100, "c": "Ninguno de los animales evaluados se encuentra sucio."}, {"p": 55, "c": "Hasta el 4% presenta suciedad moderada y ningún animal presenta suciedad severa."}, {"p": 20, "c": "Hasta el 4% presenta suciedad moderada y hasta el 2% suciedad severa."}, {"p": 0, "c": "Más del 4% presenta suciedad moderada o más del 2% suciedad severa."}]}, {"nombre": "Sintomatología respiratoria", "sec": "7.2.7", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales presentan sintomatología respiratoria?"], "esc": [{"p": 100, "c": "Menos del 3% de los animales presentan sintomatología respiratoria."}, {"p": 55, "c": "Entre el 4% y 7% de los animales presentan sintomatología respiratoria."}, {"p": 20, "c": "Entre el 8% y el 10% de los animales presentan sintomatología respiratoria."}, {"p": 0, "c": "Más del 10% de los animales presentan sintomatología respiratoria."}]}, {"nombre": "Secreción ocular", "sec": "7.2.8", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales presentan secreción ocular?"], "esc": [{"p": 100, "c": "Menos del 3% de los animales presentan secreción ocular."}, {"p": 55, "c": "Entre el 4% y 7% de los animales presentan secreción ocular."}, {"p": 20, "c": "Entre el 8% y el 10% de los animales presentan secreción ocular."}, {"p": 0, "c": "Más del 10% de los animales presentan secreción ocular."}]}, {"nombre": "Condición corporal", "sec": "7.2.9", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Cuál es la condición corporal de los animales?"], "esc": [{"p": 100, "c": "Más del 85% de los animales inspeccionados tienen una condición corporal de 3."}, {"p": 55, "c": "Del 65% al 85% de los animales inspeccionados tienen una condición corporal de 3."}, {"p": 20, "c": "Del 45% al 65% de los animales inspeccionados tienen una condición corporal de 3."}, {"p": 0, "c": "Menos del 45% de los animales inspeccionados tienen una condición corporal de 3."}]}, {"nombre": "Lesiones en el cuerpo", "sec": "7.2.10", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales presentan lesiones en el cuerpo?"], "esc": [{"p": 100, "c": "Menos del 3% de los animales presentan lesiones en el cuerpo."}, {"p": 55, "c": "Entre el 4% y 7% de los animales presentan lesiones en el cuerpo."}, {"p": 20, "c": "Entre el 8% y el 10% de los animales presentan lesiones en el cuerpo."}, {"p": 0, "c": "Más del 10% de los animales presentan lesiones en el cuerpo."}]}, {"nombre": "Enteropatía", "sec": "7.2.11", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Qué porcentaje de animales presentan enteropatía?"], "esc": [{"p": 100, "c": "Ningún animal observado presenta signos de enteropatía."}, {"p": 55, "c": "Menos del 1% de los animales observados presenta síntomas de enteropatía."}, {"p": 20, "c": "Entre el 1% y 2% de los animales observados presentan síntomas de enteropatía."}, {"p": 0, "c": "Más del 2% de los animales observados presentan síntomas de enteropatía."}]}, {"nombre": "Pododermatitis", "sec": "7.2.12", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Qué porcentaje de los animales presenta pododermatitis?"], "esc": [{"p": 100, "c": "Hasta el 30% tienen pododermatitis moderada y no hay animales con pododermatitis severa."}, {"p": 55, "c": "Hasta el 50% tienen pododermatitis moderada y/o hasta el 5% pododermatitis severa."}, {"p": 20, "c": "Hasta el 65% tienen pododermatitis moderada y/o hasta el 8% pododermatitis severa."}, {"p": 0, "c": "Más del 65% tienen pododermatitis moderada y/o más del 8% pododermatitis severa."}]}, {"nombre": "Diarrea", "sec": "7.2.13", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales presentan diarrea?"], "esc": [{"p": 100, "c": "Menos del 3% de los animales observados presenta signos de diarrea."}, {"p": 55, "c": "Entre el 3% y 4% de los animales observados presentan signos de diarrea."}, {"p": 20, "c": "Entre el 4% y 5% de los animales observados presentan signos de diarrea."}, {"p": 0, "c": "Más del 5% de los animales observados presentan signos de diarrea."}]}, {"nombre": "Presencia de mastitis", "sec": "7.2.14", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Qué porcentaje de las hembras lactantes observadas presenta mastitis?"], "esc": [{"p": 100, "c": "Ninguna de las hembras observadas presenta signos de mastitis."}, {"p": 55, "c": "Menos del 3% de las hembras observadas presenta signos de mastitis."}, {"p": 20, "c": "Entre el 3% y 5% de las hembras observadas presenta signos de mastitis."}, {"p": 0, "c": "Más del 5% de las hembras observadas presenta signos de mastitis."}]}, {"nombre": "Dermatitis o sarna", "sec": "7.2.15", "metodo": "Inspección visual sujeta a muestreo", "cond": "", "preg": ["¿Los animales presentan dermatitis o sarna?"], "esc": [{"p": 100, "c": "Menos del 3% de los animales observados presenta dermatitis o sarna."}, {"p": 55, "c": "Entre el 3% y 4% de los animales observados presentan dermatitis o sarna."}, {"p": 20, "c": "Entre el 4% y 5% de los animales observados presentan dermatitis o sarna."}, {"p": 0, "c": "Más del 5% de los animales observados presentan dermatitis o sarna."}]}, {"nombre": "Animales aislados del contacto social", "sec": "7.2.16", "metodo": "Inspección visual", "cond": "", "preg": ["¿Hay presencia de animales aislados del contacto social?"], "esc": [{"p": 100, "c": "Ningún animal se observa aislado del contacto social."}, {"p": 55, "c": "Menos del 5% de los animales se observan aislados del contacto social."}, {"p": 20, "c": "Entre el 5% y el 10% de los animales se observan aislados del contacto social."}, {"p": 0, "c": "Más del 10% de los animales observados se observan aislados del contacto social."}]}]};
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var fmt=function(x,d){return Number(x).toLocaleString('es-CO',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})};
+  /* Datos que llegan de la Etapa I cerrada (muestra y respuestas del Bloque 3) */
+  var ESC={
+    pequeno:{granja:'Granja La Esperanza',mun:'Piedecuesta',tipo:'Pequeño',n:50,hembras:6,na:['Acceso a forraje']},
+    mediano:{granja:'Cunícola El Roble',mun:'Floridablanca',tipo:'Mediano',n:80,hembras:10,na:['Acceso a forraje']},
+    intensivo:{granja:'Conejera San Isidro',mun:'Lebrija',tipo:'Intensivo',n:276,hembras:37,na:['Acceso a forraje']}};
+  /* Pesos de la norma: MBR 30 %, MBA 60 %, MBG 10 % (MBG se califica en la Etapa III) */
+  var PESO={MBR:30,MBA:60};
+  var NOMBRE={MBR:'Medidas basadas en recursos',MBA:'Medidas basadas en los animales'};
+  var st;
+  function nuevo(k){var e=ESC[k];st={esc:k,mod:'MBR',sel:{MBR:0,MBA:0},data:{MBR:IND.MBR.map(blank),MBA:IND.MBA.map(blank)},cerrada:false};
+    IND.MBR.forEach(function(x,i){if(e.na.indexOf(x.nombre)>=0)st.data.MBR[i].na=true})}
+  function blank(){return {p:null,na:false,fotos:0,obs:'',hall:''}}
+  function cur(){return IND[st.mod][st.sel[st.mod]]}
+  function cd(){return st.data[st.mod][st.sel[st.mod]]}
+  function stats(m){var d=st.data[m],ap=d.filter(function(x){return !x.na}),cal=ap.filter(function(x){return x.p!==null});
+    var avg=cal.length?cal.reduce(function(a,x){return a+x.p},0)/cal.length:0;return {total:d.length,aplican:ap.length,cal:cal.length,na:d.length-ap.length,pct:avg}}
+  function chip(x){if(x.na)return '<span class="chip cna">No aplica</span>';if(x.p===null)return '<span class="chip">Pendiente</span>';return '<span class="chip c'+x.p+'">'+x.p+' pts</span>'}
+
+  function render(){
+    if(st.cerrada)return;
+    var e=ESC[st.esc];
+    $('#gname').textContent=e.granja;$('#sub').textContent=e.mun+' · '+e.tipo+' · Andrea Gómez, Evaluador';
+    var x=cur(),d=cd(),i=st.sel[st.mod],L=IND[st.mod],m=st.mod;
+    var tabs=['MBR','MBA'].map(function(k){var s=stats(k);return '<button class="tab" role="tab" aria-selected="'+(k===m)+'" data-tab="'+k+'"><span class="tt"><b>'+k+(s.cal===s.aplican?' ✓':'')+'</b><small>'+s.cal+' de '+s.aplican+' calificados</small></span><small>'+NOMBRE[k]+' · '+PESO[k]+' %</small><span class="prog"><i style="width:'+(s.aplican?s.cal*100/s.aplican:0)+'%"></i></span></button>'}).join('');
+    var list=L.map(function(it,k){var dd=st.data[m][k];return '<button class="it'+(dd.na?' na':'')+'" data-i="'+k+'" aria-current="'+(k===i)+'"><span class="n">'+(k+1)+'</span><span class="nm">'+esc(it.nombre)+(it.cond?'<small>'+esc(it.cond)+'</small>':'')+'</span>'+chip(dd)+'</button>'}).join('');
+    var mob='<label class="mobsel">Indicador<select id="msel">'+L.map(function(it,k){var dd=st.data[m][k];return '<option value="'+k+'"'+(k===i?' selected':'')+'>'+(k+1)+'. '+esc(it.nombre)+' — '+(dd.na?'No aplica':dd.p===null?'Pendiente':dd.p+' pts')+'</option>'}).join('')+'</select></label>';
+    var helper='';
+    if(m==='MBA'&&!d.na&&x.nombre!=='Comportamiento anormal'){var base=x.nombre==='Presencia de mastitis'?e.hembras:e.n,h=parseInt(d.hall,10),pc=(!isNaN(h)&&base)?h*100/base:null;
+      helper='<div class="helper"><label for="hall">Animales con el hallazgo:</label><input id="hall" type="number" min="0" max="'+base+'" inputmode="numeric" value="'+esc(d.hall)+'"><span>de '+base+(x.nombre==='Presencia de mastitis'?' hembras reproductoras de la muestra':' animales de la muestra')+'</span><span>→ <b id="hpc">'+(pc===null?'—':fmt(pc,1)+' %')+'</b></span><span class="meta" style="flex-basis:100%">Ayuda para escoger el criterio; el puntaje lo eliges tú.</span></div>'}
+    var det='<div class="dh"><div><div class="kicker">'+m+' · Indicador '+(i+1)+' de '+L.length+'</div><h2>'+(i+1)+'. '+esc(x.nombre)+'</h2><div class="meta">'+esc(x.metodo)+' · '+(x.cond?'aplica: '+esc(x.cond.toLowerCase()):'aplica a todos')+'</div></div><span class="norma">Norma §'+x.sec+'</span></div>'
+      +'<div class="rev"><b>Qué revisar según la norma</b><ul>'+x.preg.map(function(q){return '<li>'+esc(q)+'</li>'}).join('')+'</ul></div>'
+      +(x.cond?'<div class="cond"><span>Este indicador depende de: <b>'+esc(x.cond)+'</b></span><label><input type="checkbox" id="na"'+(d.na?' checked':'')+'>No aplica en este predio</label></div>':'')
+      +(d.na?'<div class="naBox">Marcado como <b>No aplica</b>'+(ESC[st.esc].na.indexOf(x.nombre)>=0?' según las respuestas de la Etapa I':'')+'. No se califica ni cuenta en el puntaje.</div>':'')
+      +helper
+      +'<fieldset class="opts"'+(d.na?' disabled':'')+'><legend>Puntaje · criterio de cumplimiento</legend>'+x.esc.map(function(o){return '<label class="opt"><input type="radio" name="p" value="'+o.p+'"'+(d.p===o.p?' checked':'')+(d.na?' disabled':'')+'><span class="rd"></span><span class="pt">'+o.p+' pts</span><span>'+esc(o.c)+'</span></label>'}).join('')+'</fieldset>'
+      +'<div><div class="kicker" style="margin-bottom:8px">Evidencias</div><div class="ev">'+Array.from({length:d.fotos},function(_,k){return '<div class="ph">Foto '+(k+1)+'<button type="button" data-rm="'+k+'" aria-label="Quitar foto '+(k+1)+'">×</button></div>'}).join('')+'<button class="btn dash" type="button" id="foto"'+(d.na?' disabled':'')+'>+ Tomar foto</button></div></div>'
+      +'<label class="f">Observaciones<textarea id="obs" placeholder="Lo que viste en el predio (opcional)">'+esc(d.obs)+'</textarea></label>'
+      +'<div class="nav"><button class="btn" id="prev"'+(i===0&&m==='MBR'?' disabled':'')+'>‹ Anterior</button><button class="btn primary" id="next">'+(i<L.length-1?'Siguiente ›':(m==='MBR'?'Continuar con MBA ›':'Revisar y cerrar'))+'</button></div>';
+    var s1=stats('MBR'),s2=stats('MBA');
+    $('#main').innerHTML='<h1>Etapa II · Inspección del predio y del animal</h1>'
+      +'<div class="scen"><b>Escenario de prueba (solo prototipo):</b><div class="segb" role="group" aria-label="Escenario de prueba">'+['pequeno','mediano','intensivo'].map(function(k){return '<button type="button" data-s="'+k+'" aria-pressed="'+(k===st.esc)+'">'+ESC[k].tipo+'</button>'}).join('')+'</div><button class="link" id="demo">Llenar con datos de ejemplo</button></div>'
+      +'<div class="meta" style="margin:-6px 0 14px">Muestra de la Etapa I: <b>'+fmt(e.n)+' animales</b>. Todos los indicadores están habilitados; los que dependen de una condición se pueden marcar como "No aplica".</div>'
+      +'<div class="tabs" role="tablist">'+tabs+'</div>'
+      +'<div class="work"><nav class="list" aria-label="Indicadores '+m+'">'+list+'</nav><section class="det">'+mob+det+'</section></div>'
+      +'<p class="legal">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA.</p>';
+    $('#stat').textContent=(s1.cal+s2.cal)+' de '+(s1.aplican+s2.aplican)+' indicadores calificados';
+    bind();
+    var a=document.querySelector('.it[aria-current="true"]');if(a&&a.scrollIntoView)a.scrollIntoView({block:'nearest'});
+  }
+  function go(mod,i,focus){st.mod=mod;st.sel[mod]=i;render();if(focus!==false){var h=$('.det h2');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}}
+    var det=$('.det');if(det&&det.getBoundingClientRect().top<140)window.scrollTo({top:det.offsetTop-160})}
+  function bind(){
+    document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.tab,st.sel[b.dataset.tab])})});
+    document.querySelectorAll('[data-i]').forEach(function(b){b.addEventListener('click',function(){go(st.mod,+b.dataset.i)})});
+    document.querySelectorAll('[data-s]').forEach(function(b){b.addEventListener('click',function(){nuevo(b.dataset.s);render();try{history.replaceState(null,'','#'+b.dataset.s)}catch(e){}})});
+    $('#msel').addEventListener('change',function(){go(st.mod,+this.value)});
+    $('#demo').addEventListener('click',demo);
+    document.querySelectorAll('input[name="p"]').forEach(function(r){r.addEventListener('change',function(){cd().p=+r.value;var keep=r.value;render();var n=document.querySelector('input[name="p"][value="'+keep+'"]');n&&n.focus()})});
+    var na=$('#na');if(na)na.addEventListener('change',function(){cd().na=na.checked;if(na.checked)cd().p=null;render();$('#na').focus()});
+    $('#obs').addEventListener('input',function(){cd().obs=this.value});
+    var h=$('#hall');if(h)h.addEventListener('input',function(){cd().hall=h.value;var e=ESC[st.esc],base=cur().nombre==='Presencia de mastitis'?e.hembras:e.n,v=parseInt(h.value,10);$('#hpc').textContent=(!isNaN(v)&&base)?fmt(v*100/base,1)+' %':'—'});
+    $('#foto').addEventListener('click',function(){cd().fotos++;render();$('#foto').focus()});
+    document.querySelectorAll('[data-rm]').forEach(function(b){b.addEventListener('click',function(){cd().fotos--;render();$('#foto').focus()})});
+    $('#prev').addEventListener('click',function(){var i=st.sel[st.mod];if(i>0)go(st.mod,i-1);else if(st.mod==='MBA')go('MBR',IND.MBR.length-1)});
+    $('#next').addEventListener('click',function(){var i=st.sel[st.mod],L=IND[st.mod];
+      if(i<L.length-1)go(st.mod,i+1);else if(st.mod==='MBR')go('MBA',0);else cerrarEtapa()});
+  }
+  function demo(){
+    /* Puntajes de ejemplo para ver el resultado rápido */
+    var ej={MBR:[55,100,null,100,100,55,100,55,20,100,55,100,100,55,100],MBA:[100,55,100,100,100,55,55,100,55,100,100,20,100,100,55,100]};
+    ['MBR','MBA'].forEach(function(m){st.data[m].forEach(function(d,i){if(!d.na)d.p=ej[m][i]===null?100:ej[m][i]})});
+    st.data.MBR[8].obs='Tres jaulas del galpón 2 sin reposa patas.';st.data.MBA[11].obs='Pododermatitis moderada en varios reproductores.';st.data.MBR[0].fotos=2;
+    render();toast('Se llenaron los indicadores con puntajes de ejemplo.');
+  }
+
+  var lastFocus;
+  function abrir(h){lastFocus=document.activeElement;$('#modal').innerHTML=h;$('#scrim').classList.add('open');var b=$('#modal').querySelector('button.primary')||$('#modal').querySelector('button');b&&b.focus();
+    $('#modal').querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',cerrar)})}
+  function cerrar(){$('#scrim').classList.remove('open');lastFocus&&document.body.contains(lastFocus)&&lastFocus.focus()}
+  $('#scrim').addEventListener('click',function(e){if(e.target.id==='scrim')cerrar()});
+  document.addEventListener('keydown',function(e){if(!$('#scrim').classList.contains('open'))return;if(e.key==='Escape')cerrar();
+    if(e.key==='Tab'){var els=$('#modal').querySelectorAll('button,a[href]');if(!els.length)return;var a=els[0],z=els[els.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+  var tt;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3000)}
+
+  function cerrarEtapa(){
+    var falt=[];['MBR','MBA'].forEach(function(m){st.data[m].forEach(function(d,i){if(!d.na&&d.p===null)falt.push({m:m,i:i})})});
+    if(falt.length){
+      abrir('<h2 id="mt">Faltan '+falt.length+' indicador'+(falt.length===1?'':'es')+' por calificar</h2><ul>'+falt.slice(0,8).map(function(f){return '<li><button class="link" data-go="'+f.m+'|'+f.i+'">'+f.m+' '+(f.i+1)+'. '+esc(IND[f.m][f.i].nombre)+'</button></li>'}).join('')+(falt.length>8?'<li>y '+(falt.length-8)+' más</li>':'')+'</ul><p class="meta" style="margin:0">Toca uno para ir a calificarlo, o usa "Llenar con datos de ejemplo".</p><div class="row"><button class="btn primary" data-close>Seguir calificando</button></div>');
+      document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){var p=b.dataset.go.split('|');$('#scrim').classList.remove('open');go(p[0],+p[1])})});return}
+    var s1=stats('MBR'),s2=stats('MBA');
+    abrir('<h2 id="mt">¿Cerrar la Etapa II?</h2><p style="margin:0">MBR: <b>'+fmt(s1.pct,1)+' %</b> · MBA: <b>'+fmt(s2.pct,1)+' %</b>. Después de cerrarla no podrás cambiar los puntajes.</p><div class="row"><button class="btn" data-close>Seguir revisando</button><button class="btn primary" id="ok">Cerrar Etapa II</button></div>');
+    $('#ok').addEventListener('click',function(){$('#scrim').classList.remove('open');resultado()});
+  }
+  $('#close').addEventListener('click',cerrarEtapa);
+
+  /* ---------- Resultado de la Etapa II ---------- */
+  function resultado(){
+    st.cerrada=true;$('#toast').classList.remove('show');var e=ESC[st.esc],s={MBR:stats('MBR'),MBA:stats('MBA')};
+    var li=document.querySelectorAll('#steps li');li[1].className='done';li[1].removeAttribute('aria-current');li[1].firstChild.textContent='II · Inspección del predio y del animal ✓';li[2].className='on';li[2].setAttribute('aria-current','step');
+    $('#bar').remove();
+    var ap={MBR:s.MBR.pct*PESO.MBR/100,MBA:s.MBA.pct*PESO.MBA/100},sub=ap.MBR+ap.MBA;
+    var ahora=new Date(),fecha=ahora.toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'})+' · '+ahora.toLocaleTimeString('es-CO',{hour:'numeric',minute:'2-digit'});
+    var COL={100:'var(--green)',55:'var(--yellow)',20:'var(--orange)',0:'var(--danger)'};
+    function modulo(m){var d=st.data[m],cnt={100:0,55:0,20:0,0:0};d.forEach(function(x){if(!x.na)cnt[x.p]++});var tot=s[m].aplican;
+      return '<section class="blk"><div class="kicker">'+m+' · '+PESO[m]+' % del total</div><h2>'+NOMBRE[m]+'</h2>'
+        +'<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><b style="font-family:var(--font-head);font-size:34px">'+fmt(s[m].pct,1)+' %</b><span class="meta">promedio de '+tot+' indicadores'+(s[m].na?' · '+s[m].na+' no aplica':'')+'</span></div>'
+        +'<div class="dist" role="img" aria-label="Distribución de puntajes '+m+'">'+[100,55,20,0].map(function(p){return cnt[p]?'<i style="width:'+cnt[p]*100/tot+'%;background:'+COL[p]+'"></i>':''}).join('')+'</div>'
+        +'<div class="legend">'+[100,55,20,0].map(function(p){return '<span style="--c:'+COL[p]+'">'+p+' pts: '+cnt[p]+'</span>'}).join('')+'</div>'
+        +'<details><summary class="link" style="text-decoration:none">Ver los '+d.length+' indicadores</summary><div style="margin-top:8px">'+d.map(function(x,i){return '<div class="rl"><span>'+(i+1)+'. '+esc(IND[m][i].nombre)+'</span>'+chip(x)+'</div>'}).join('')+'</div></details></section>'}
+    var crit=[];['MBR','MBA'].forEach(function(m){st.data[m].forEach(function(x,i){if(!x.na&&x.p<=20)crit.push({m:m,i:i,x:x})})});
+    var nf=0,no=0;['MBR','MBA'].forEach(function(m){st.data[m].forEach(function(x){nf+=x.fotos;if(x.obs.trim())no++})});
+    var html='<div class="res-ok" role="status"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5 9-10"/></svg><div><b>Etapa II cerrada</b><span>'+fecha+' · Andrea Gómez, Evaluador</span></div></div>'
+      +'<h1>Resultado de la Etapa II</h1>'
+      +'<div class="kpis"><div class="kpi main"><span>Puntaje parcial</span><b>'+fmt(sub,1)+' de 90</b><small>MBR (30 %) + MBA (60 %). Falta MBG (10 %).</small></div>'
+      +'<div class="kpi"><span>MBR · recursos</span><b>'+fmt(s.MBR.pct,1)+' %</b><small>Aporta '+fmt(ap.MBR,1)+' de 30 puntos</small></div>'
+      +'<div class="kpi"><span>MBA · animales</span><b>'+fmt(s.MBA.pct,1)+' %</b><small>Aporta '+fmt(ap.MBA,1)+' de 60 puntos</small></div>'
+      +'<div class="kpi"><span>Indicadores calificados</span><b>'+(s.MBR.cal+s.MBA.cal)+' de '+(s.MBR.aplican+s.MBA.aplican)+'</b><small>De 31 en total · '+(s.MBR.na+s.MBA.na)+' no aplica · '+fmt(e.n)+' animales evaluados</small></div></div>'
+      +'<div class="formula">Cálculo: MBR '+fmt(s.MBR.pct,1)+' % × 0,30 = '+fmt(ap.MBR,2)+' &nbsp;+&nbsp; MBA '+fmt(s.MBA.pct,1)+' % × 0,60 = '+fmt(ap.MBA,2)+' &nbsp;→&nbsp; <b>'+fmt(sub,2)+' puntos</b>. Cada módulo es el promedio de los puntajes de sus indicadores que aplican.</div>'
+      +'<div class="grid" style="margin-top:20px">'+modulo('MBR')+modulo('MBA')+'</div>'
+      +'<div class="grid" style="margin-top:20px"><section class="blk"><div class="kicker">Atención</div><h2>Indicadores críticos ('+crit.length+')</h2><p class="meta" style="margin:0">Con 0 o 20 puntos. Son los primeros a mejorar en el plan del productor.</p>'
+        +(crit.length?crit.map(function(c){return '<div class="crit"><span><b>'+c.m+' '+(c.i+1)+'. '+esc(IND[c.m][c.i].nombre)+'</b> · '+c.x.p+' pts</span>'+(c.x.obs?'<small>'+esc(c.x.obs)+'</small>':'<small>Sin observaciones.</small>')+'</div>'}).join(''):'<p style="margin:0">Ningún indicador quedó en 0 o 20 puntos.</p>')+'</section>'
+      +'<section class="blk"><div class="kicker">Soportes</div><h2>Evidencias registradas</h2><div class="rl"><span>Fotos tomadas</span><b>'+nf+'</b></div><div class="rl"><span>Indicadores con observaciones</span><b>'+no+'</b></div><div class="rl"><span>Indicadores en 100 puntos</span><b>'+['MBR','MBA'].reduce(function(a,m){return a+st.data[m].filter(function(x){return !x.na&&x.p===100}).length},0)+'</b></div></section></div>'
+      +'<div class="next"><div><b>Siguiente: Etapa III · Inspección documental</b><span>Califica los 8 indicadores MBG (10 %). Con eso se obtiene la clasificación final en la Etapa IV.</span></div>'
+        +'<div class="row"><a class="btn" href="Mis%20visitas%20Cun%C3%ADcola.html">Volver a Mis visitas</a><button class="btn primary" id="e3">Iniciar Etapa III</button></div></div>'
+      +'<p class="legal">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA.</p>';
+    $('#main').innerHTML=html;window.scrollTo(0,0);
+    $('#e3').addEventListener('click',function(){location.href='Etapa%20III%20Cun%C3%ADcola.html#'+st.esc});
+  }
+
+  var h=(location.hash||'').slice(1);nuevo(ESC[h]?h:'pequeno');render();
+})();
+</script>
+
+</body></html>

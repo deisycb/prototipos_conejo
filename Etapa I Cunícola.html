@@ -1,0 +1,411 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Etapa I Cunícola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Work+Sans:wght@500;600;700&display=swap">
+<style>
+/* Layout: barra superior con granja y pasos de la evaluación; dos columnas de bloques (B1+B2 | B3+B4); una columna en tablet vertical/celular */
+:root{
+  --green:#0b7a3e; --green-dark:#075a2d; --green-soft:#e6f2ea; --yellow:#f2c200; --yellow-soft:#fff6d1;
+  --bg:#f6f8f6; --surface:#ffffff; --surface-2:#eef3ef; --fg:#14231a; --muted:#4f6157; --line:#cbd8cf; --line-strong:#14231a;
+  --danger:#a3271b; --danger-soft:#fbe9e7; --on-green:#ffffff;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Work Sans','Atkinson Hyperlegible',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c; --yellow-soft:#3a3214;
+  --bg:#0f1712; --surface:#16211a; --surface-2:#1c2a21; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --on-green:#0f1712; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c; --yellow-soft:#3a3214;
+  --bg:#0f1712; --surface:#16211a; --surface-2:#1c2a21; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --on-green:#0f1712; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.45}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.topbar{background:var(--green-dark);color:#fff;border-bottom:4px solid var(--yellow);position:sticky;top:0;z-index:5}
+.tb1{display:flex;align-items:center;gap:14px;padding:12px 24px 10px}
+.back{width:42px;height:42px;border-radius:8px;border:2px solid #fff;color:#fff;display:grid;place-items:center;flex-shrink:0;text-decoration:none}
+.back:hover{background:rgba(255,255,255,.12)}
+.ttl{min-width:0;margin-right:auto}
+.ttl b{font-family:var(--font-head);font-size:20px;display:block;line-height:1.2}
+.ttl span{font-size:14px;color:#d6e8dc}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:700;font-size:15px;color:#e3efe7;white-space:nowrap}
+.mark{width:28px;height:28px;border-radius:7px;background:var(--yellow);color:#14231a;display:grid;place-items:center}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 24px 12px;list-style:none;margin:0}
+.steps li{font-size:13px;color:#cfe3d6;display:flex;flex-direction:column;gap:6px;min-width:0}
+.steps li::before{content:"";height:6px;border-radius:3px;background:rgba(255,255,255,.22)}
+.steps li.on{color:#fff;font-weight:700}
+.steps li.on::before{background:var(--yellow)}
+.steps li.done::before{background:#fff}
+.steps li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{max-width:1240px;margin:0 auto;padding:24px 24px 120px}
+h1{margin:0 0 18px;font-family:var(--font-head);font-size:28px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.blk{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.blk.ro{border-style:dashed;background:var(--surface-2)}
+.blk.ok{border-color:var(--green)}
+.bh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.blk h2{margin:2px 0 0;font-family:var(--font-head);font-size:19px}
+.chk{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.chk input{width:22px;height:22px;accent-color:var(--green);cursor:pointer}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.kv:last-child{border-bottom:0}
+.kv b{font-variant-numeric:tabular-nums}
+.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700;min-width:0}
+.control{height:46px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:0 12px;font-size:16px;font-weight:400;width:100%;font-variant-numeric:tabular-nums}
+.control[readonly]{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
+.f.err .control{border-color:var(--danger);background:var(--danger-soft)}
+.msg{color:var(--danger);font-size:13px;font-weight:400}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inline{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.inline:last-child{border-bottom:0}
+.inline label{font-size:15px}
+.inline.muted label{color:var(--muted)}
+.inline .control{width:88px;text-align:center;height:42px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--line-strong);border-radius:8px;overflow:hidden}
+.seg div{padding:8px 4px;text-align:center;font-size:15px;border-right:1px solid var(--line)}
+.seg div:last-child{border-right:0}
+.seg div small{display:block;font-size:12px;color:var(--muted)}
+.seg div.on{background:var(--green);color:var(--on-green);font-weight:700}
+.seg div.on small{color:var(--on-green)}
+.lbl{font-size:13px;color:var(--muted)}
+.note{font-size:14px;border-radius:8px;padding:10px 12px;background:var(--yellow-soft);border:1px solid var(--yellow)}
+.note.err{background:var(--danger-soft);border-color:var(--danger);color:var(--danger)}
+.q{display:flex;flex-direction:column;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.q:last-of-type{border-bottom:0}
+.q legend{font-weight:700;font-size:15px;padding:0;margin-bottom:8px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.yn label{position:relative}
+.yn input{position:absolute;opacity:0;pointer-events:none}
+.yn span{display:grid;place-items:center;height:48px;border:1.5px solid var(--line-strong);border-radius:8px;cursor:pointer;background:var(--surface)}
+.yn input:checked+span{background:var(--green);border-color:var(--green);color:var(--on-green);font-weight:700}
+.yn input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
+.na{background:var(--surface-2);border-radius:8px;padding:12px 14px}
+.na b{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.na ul{margin:6px 0 0;padding-left:18px;font-size:15px}
+.na p{margin:6px 0 0;font-size:15px;color:var(--muted)}
+.big{border:2px solid var(--green);border-radius:12px;background:var(--surface);text-align:center;padding:16px}
+.big .n{font-family:var(--font-head);font-size:64px;font-weight:700;line-height:1;color:var(--green);font-variant-numeric:tabular-nums}
+.big .t{font-weight:700;margin-top:6px}
+.big .s{font-size:13px;color:var(--muted)}
+.eq{text-align:center;font-size:16px;font-variant-numeric:tabular-nums}
+.sec{font-weight:700;font-size:15px;margin-top:4px}
+.box{background:var(--surface-2);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.box .two div{background:var(--surface);border:1.5px solid var(--line-strong);border-radius:8px;padding:8px 12px}
+.box .two b{font-family:var(--font-head);font-size:22px;display:block}
+.box .two span{font-size:13px;color:var(--muted)}
+.cages{font-size:13px;color:var(--muted);margin:0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 24px;display:flex;justify-content:flex-end;align-items:center;gap:16px;z-index:6}
+.bar .stat{margin-right:auto;font-size:14px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:8px;border:2px solid var(--green);background:var(--surface);color:var(--green);font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.primary{background:var(--green);color:var(--on-green)}
+.btn.primary:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.scen{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:-6px 0 18px;padding:10px 14px;border:1.5px dashed var(--line);border-radius:10px;background:var(--surface)}
+.scen b{font-size:14px}
+.scen .seg{flex:1 1 320px;cursor:pointer}
+.scen .seg button{border:0;border-right:1px solid var(--line);background:var(--surface);padding:8px 4px;font-size:15px;cursor:pointer}
+.scen .seg button:last-child{border-right:0}
+.scen .seg button[aria-pressed="true"]{background:var(--green);color:var(--on-green);font-weight:700}
+.norma{font-size:12px;border:1px solid var(--line-strong);border-radius:6px;padding:3px 8px;white-space:nowrap;color:var(--muted)}
+.gtab{display:grid;grid-template-columns:minmax(0,1fr) 96px 96px;gap:6px 10px;align-items:center}
+.gtab.noj{grid-template-columns:minmax(0,1fr) 96px}
+.gtab .h{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.gtab .control{height:40px;text-align:center}
+.gtab .tot{font-weight:700;border-top:1.5px solid var(--line-strong);padding-top:8px}
+.gtab .tv{text-align:center;font-weight:700;border-top:1.5px solid var(--line-strong);padding-top:8px;font-variant-numeric:tabular-nums}
+.res-ok{display:flex;gap:12px;align-items:center;background:var(--green-soft);border:1.5px solid var(--green);border-radius:10px;padding:12px 16px;margin-bottom:18px;color:var(--green)}
+.res-ok div{display:flex;flex-direction:column;color:var(--fg)}
+.res-ok span{font-size:14px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi b{font-family:var(--font-head);font-size:30px;line-height:1.15;font-variant-numeric:tabular-nums}
+.kpi small{font-size:13px;color:var(--muted)}
+.kpi.main{border:2px solid var(--green);background:var(--green-soft)}
+.kpi.main b{color:var(--green);font-size:40px}
+.bars{display:flex;flex-direction:column;gap:14px}
+.bl{display:flex;justify-content:space-between;gap:10px}
+.bl b{font-variant-numeric:tabular-nums}
+.track{height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden;margin:4px 0 2px}
+.track i{display:block;height:100%;background:var(--green);border-radius:5px}
+.brow small{font-size:13px;color:var(--muted)}
+.nal{margin:0;padding-left:20px}
+.tw{overflow-x:auto}
+.plan{width:100%;border-collapse:collapse;min-width:520px}
+.plan th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px;border-bottom:2px solid var(--line-strong)}
+.plan td{padding:10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.plan .r{text-align:right}
+.plan tr.tt td{font-weight:700;border-top:2px solid var(--line-strong);border-bottom:0}
+.next{margin-top:20px;background:var(--surface);border:2px solid var(--green);border-radius:12px;padding:16px 18px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.next div:first-child{display:flex;flex-direction:column;gap:2px;max-width:60ch}
+.next span{color:var(--muted);font-size:15px}
+@media (max-width:640px){
+  .plan{min-width:0}.plan thead{display:none}
+  .plan tr{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .plan tr.tt{border-top:2px solid var(--line-strong);border-bottom:0}
+  .plan td{border:0!important;padding:0;text-align:left!important;display:flex;flex-direction:column}
+  .plan td.gn,.plan td.wide{grid-column:1/-1}
+  .plan td[data-l]::before{content:attr(data-l);font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .next .row{width:100%}.next .btn{flex:1}.kpi.main b{font-size:34px}}
+.legal{margin-top:24px;font-size:12px;color:var(--muted)}
+.scrim{position:fixed;inset:0;background:rgba(10,20,14,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.scrim.open{display:flex}
+.modal{background:var(--surface);border-radius:14px;border-top:6px solid var(--green);width:100%;max-width:520px;max-height:calc(100vh - 32px);overflow:auto;padding:24px;display:flex;flex-direction:column;gap:14px}
+.modal h2{margin:0;font-family:var(--font-head);font-size:22px}
+.modal ul{margin:0;padding-left:20px}
+.row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+@media (max-width:900px){ .grid{grid-template-columns:1fr} }
+@media (max-width:640px){
+  .tb1{padding:10px 16px 8px}.steps{padding:0 16px 10px;gap:6px}.brand{display:none}
+  .steps li span{font-size:11px}
+  .steps li:not(.on) span{visibility:hidden}
+  .steps li.on span{overflow:visible}
+  .ttl b{font-size:17px}.ttl span{font-size:13px}
+  main{padding:18px 16px 120px} h1{font-size:23px}
+  .blk{padding:16px}
+  .bar{padding:10px 16px}.bar .stat{display:none}.bar .btn{width:100%}
+  .chk span{display:none}
+}
+</style>
+
+<header class="topbar">
+  <div class="tb1">
+    <a class="back" href="Mis%20visitas%20Cun%C3%ADcola.html" aria-label="Volver a Mis visitas"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+    <div class="ttl"><b id="gname">Granja La Esperanza</b><span id="sub">Piedecuesta · Pequeño · Andrea Gómez, Evaluador</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 3c-1 3-1 6 1 8M15 3c1 3 1 6-1 8"/><circle cx="12" cy="15" r="5"/></svg></span>Bienestar Cunícola</div>
+  </div>
+  <ol class="steps" aria-label="Etapas de la evaluación" id="steps">
+    <li class="on" aria-current="step"><span>I · Reunión inicial</span></li>
+    <li><span>II · Inspección del predio y del animal</span></li>
+    <li><span>III · Inspección documental</span></li>
+    <li><span>IV · Resultados</span></li>
+  </ol>
+</header>
+
+<main id="main">
+  <h1>Etapa I · Reunión inicial</h1>
+  <div class="scen"><b>Escenario de prueba (solo prototipo):</b><div class="seg" role="group" aria-label="Escenario de prueba" id="scen"><button type="button" data-s="pequeno">Pequeño</button><button type="button" data-s="mediano">Mediano</button><button type="button" data-s="intensivo">Intensivo</button></div></div>
+  <div class="grid">
+    <div class="col">
+      <!-- BLOQUE 1 -->
+      <section class="blk ro" id="b1">
+        <div class="bh"><div><div class="kicker">Bloque 1 · Solo lectura</div><h2>Consulta previa en SIGMA</h2></div><label class="chk"><span>Revisado</span><input type="checkbox" data-b="b1"></label></div>
+        <div><div class="kv"><span>Inventario animal</span><b id="s-inv">80</b></div><div class="kv"><span>Tipo de predio</span><b id="s-tipo">Pequeño</b></div></div>
+      </section>
+      <!-- BLOQUE 2 -->
+      <section class="blk" id="b2">
+        <div class="bh"><div><div class="kicker">Bloque 2 · Editable</div><h2>Información básica del predio</h2></div><label class="chk"><span>Revisado</span><input type="checkbox" data-b="b2"></label></div>
+        <label class="f" id="w-resp">Responsable del predio que acompaña la visita *<input class="control" id="resp" placeholder="Nombre completo" autocomplete="name"><span class="msg"></span></label>
+        <div class="inline" style="border:0"><label for="hem" style="font-weight:700">Hembras reproductoras *</label><input class="control" id="hem" type="number" min="0" inputmode="numeric" value="9"></div>
+        <div><div class="lbl">Tipo de productor (automático, norma §5.2)</div>
+          <div class="seg" id="seg" aria-live="polite"><div data-t="Pequeño">Pequeño<small>hasta 10</small></div><div data-t="Mediano">Mediano<small>11 a 100</small></div><div data-t="Intensivo">Intensivo<small>más de 100</small></div></div></div>
+        <div class="note" id="sigma" hidden></div>
+        <div class="two">
+          <label class="f" id="w-tot">Total de conejos *<input class="control" id="tot" type="number" min="0" inputmode="numeric" value="96"><span class="msg"></span></label>
+          <label class="f" id="w-gaz">Gazapos lactantes *<input class="control" id="gaz" type="number" min="0" inputmode="numeric" value="16"><span class="msg"></span></label>
+        </div>
+        <div>
+          <div class="sec">Animales por grupo etario</div>
+          <div class="inline muted"><label for="g-hem">Hembras reproductoras</label><input class="control" id="g-hem" readonly tabindex="-1"></div>
+          <div class="inline"><label for="g-mac">Machos reproductores</label><input class="control" id="g-mac" type="number" min="0" inputmode="numeric" value="2"></div>
+          <div class="inline"><label for="g-ree">Machos y hembras de reemplazo</label><input class="control" id="g-ree" type="number" min="0" inputmode="numeric" value="5"></div>
+          <div class="inline"><label for="g-lev">Levante y engorde</label><input class="control" id="g-lev" type="number" min="0" inputmode="numeric" value="64"></div>
+          <div class="inline muted"><label for="g-gaz">Gazapos lactantes</label><input class="control" id="g-gaz" readonly tabindex="-1"></div>
+        </div>
+        <div class="note err" id="suma" hidden></div>
+        <label class="f" id="w-gal" style="max-width:200px">N.° de galpones *<input class="control" id="gal" type="number" min="1" max="30" inputmode="numeric" value="2"><span class="msg"></span></label>
+        <div><div class="sec">Animales y jaulas por galpón <span class="lbl">(sin gazapos lactantes)</span></div><div class="gtab" id="gtab" style="margin-top:8px"></div></div>
+        <div class="note err" id="gsum" hidden></div>
+      </section>
+    </div>
+    <div class="col">
+      <!-- BLOQUE 3 -->
+      <section class="blk" id="b3">
+        <div class="bh"><div><div class="kicker">Bloque 3</div><h2>¿Qué indicadores aplican?</h2></div><label class="chk"><span>Revisado</span><input type="checkbox" data-b="b3"></label></div>
+        <div id="qs"></div>
+        <div class="na" aria-live="polite" id="na"></div>
+      </section>
+      <!-- BLOQUE 4 -->
+      <section class="blk ro" id="b4">
+        <div class="bh"><div><div class="kicker">Bloque 4 · Automático</div><h2>Tamaño de muestra</h2></div><span class="norma">Norma Tabla 1, Notas 1 y 2</span><label class="chk"><span>Revisado</span><input type="checkbox" data-b="b4"></label></div>
+        <div id="m"></div>
+      </section>
+    </div>
+  </div>
+  <p class="legal">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA.</p>
+</main>
+
+<div class="bar"><span class="stat" id="stat"></span><button class="btn primary" id="close">Cerrar Etapa I y continuar</button></div>
+<div class="scrim" id="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt" id="modal"></div></div>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  /* Escenarios de prueba: datos que vendrían de SIGMA y de la visita programada */
+  var ESC={
+    pequeno:{granja:'Granja La Esperanza',mun:'Piedecuesta',sigma:{inv:80,tipo:'Pequeño'},hem:9,tot:96,gaz:16,mac:2,ree:5,lev:64,
+      galp:[[16,8],[64,16]],qs:{cria:'si',sacr:'no',jaul:'si',ext:'no'}},
+    mediano:{granja:'Cunícola El Roble',mun:'Floridablanca',sigma:{inv:370,tipo:'Mediano'},hem:45,tot:550,gaz:180,mac:6,ree:18,lev:301,
+      galp:[[51,50],[171,70],[148,70]],qs:{cria:'si',sacr:'no',jaul:'si',ext:'no'}},
+    intensivo:{granja:'Conejera San Isidro',mun:'Lebrija',sigma:{inv:1835,tipo:'Intensivo'},hem:246,tot:2835,gaz:1000,mac:27,ree:60,lev:1502,
+      galp:[[140,140],[133,140],[60,60],[306,112],[299,112],[299,112],[299,112],[299,112]],qs:{cria:'si',sacr:'si',jaul:'si',ext:'no'}}};
+  var SIGMA=ESC.pequeno.sigma, galp=ESC.pequeno.galp.map(function(g){return g.slice()});
+  /* Bloque 3: cada pregunta, la respuesta que la deja por fuera y el indicador que no aplica */
+  var QS=[
+    {id:'cria',t:'¿Tiene fase de cría?',noAplica:'no',ind:'Manejo de nidales y gazapos lactantes'},
+    {id:'sacr',t:'¿Sacrifica para consumo humano?',noAplica:'no',ind:'Protocolo de sacrificio para consumo humano'},
+    {id:'jaul',t:'¿Usa jaulas?',noAplica:'no',ind:'Dimensiones y estado de las jaulas'},
+    {id:'ext',t:'¿Sistema extensivo o semi intensivo?',noAplica:'no',ind:'Acceso a forraje'}];
+  $('#qs').innerHTML=QS.map(function(q){return '<fieldset class="q"><legend>'+q.t+'</legend><div class="yn">'
+    +['si','no'].map(function(v){return '<label><input type="radio" name="'+q.id+'" value="'+v+'"><span>'+(v==='si'?'Sí':'No')+'</span></label>'}).join('')+'</div></fieldset>'}).join('');
+
+  var fmtN=function(x){return x.toLocaleString('es-CO')};
+  function n(id){var v=parseInt($('#'+id).value,10);return isNaN(v)||v<0?0:v}
+  function tipo(h){return h<=10?'Pequeño':h<=100?'Mediano':'Intensivo'}
+  /* Tabla 1 de la norma: población sin gazapos lactantes → animales a evaluar (Nota 1: sin gazapos; Nota 2: más de 500 → 15 %, redondeado hacia arriba) */
+  function muestra(N){if(N<=50)return {n:N,base:'Hasta 50 animales → se evalúan todos'};if(N<=100)return {n:50,base:'Base de 51 a 100 animales → 50'};if(N<=500)return {n:80,base:'Base de 101 a 500 animales → 80'};
+    var r=N*.15,c=Math.ceil(r-1e-9);return {n:c,base:'Más de 500 animales → 15 % ('+fmtN(N)+' × 15 % = '+r.toLocaleString('es-CO',{maximumFractionDigits:2})+' → '+fmtN(c)+')'}}
+  /* Reparto proporcional con el método del mayor residuo; cada grupo con animales recibe al menos 1 */
+  function reparto(vals,total){var sum=vals.reduce(function(a,b){return a+b},0);if(!sum)return vals.map(function(){return 0});
+    var raw=vals.map(function(v){return v*total/sum}),out=raw.map(Math.floor),rest=total-out.reduce(function(a,b){return a+b},0);
+    raw.map(function(r,i){return {i:i,r:r-Math.floor(r)}}).sort(function(a,b){return b.r-a.r}).forEach(function(x,k){if(k<rest)out[x.i]++});
+    vals.forEach(function(v,i){if(v>0&&out[i]===0){out[i]=1;var j=out.indexOf(Math.max.apply(null,out));if(j!==i)out[j]--}});return out}
+
+  function usaJaulas(){return document.querySelector('input[name="jaul"]:checked').value==='si'}
+  function tablaGalpones(){
+    var k=Math.min(30,Math.max(1,n('gal')));
+    while(galp.length<k)galp.push([0,0]);galp.length=k;
+    var uj=usaJaulas(),t=$('#gtab');t.className='gtab'+(uj?'':' noj');
+    t.innerHTML='<span class="h">Galpón</span><span class="h" style="text-align:center">Animales</span>'+(uj?'<span class="h" style="text-align:center">Jaulas</span>':'')
+      +galp.map(function(g,i){return '<label for="ga'+i+'">Galpón '+(i+1)+'</label><input class="control" id="ga'+i+'" data-g="'+i+'" data-c="0" type="number" min="0" inputmode="numeric" value="'+g[0]+'" aria-label="Animales del galpón '+(i+1)+'">'
+        +(uj?'<input class="control" data-g="'+i+'" data-c="1" type="number" min="0" inputmode="numeric" value="'+g[1]+'" aria-label="Jaulas del galpón '+(i+1)+'">':'')}).join('')
+      +'<span class="tot">Total</span><span class="tv" id="ga-t"></span>'+(uj?'<span class="tv" id="gj-t"></span>':'');
+    t.querySelectorAll('[data-g]').forEach(function(inp){inp.addEventListener('input',function(){var v=parseInt(inp.value,10);galp[+inp.dataset.g][+inp.dataset.c]=isNaN(v)||v<0?0:v;calc()})});
+  }
+
+  function calc(){
+    var hem=n('hem'),tot=n('tot'),gaz=n('gaz'),mac=n('g-mac'),ree=n('g-ree'),lev=n('g-lev');
+    $('#g-hem').value=hem;$('#g-gaz').value=gaz;
+    var t=tipo(hem);
+    document.querySelectorAll('#seg div').forEach(function(d){d.classList.toggle('on',d.dataset.t===t)});
+    $('#sub').textContent=ESC[esc].mun+' · '+t+' · Andrea Gómez, Evaluador';
+    var sg=$('#sigma');if(t!==SIGMA.tipo){sg.hidden=false;sg.textContent='El tipo calculado ('+t+') no coincide con el registrado en SIGMA ('+SIGMA.tipo+'). Verifica las hembras reproductoras con el productor.'}else sg.hidden=true;
+    var grupos=hem+mac+ree+lev+gaz,su=$('#suma');
+    if(tot&&grupos!==tot){su.hidden=false;su.textContent='La suma de los grupos etarios ('+fmtN(grupos)+') no coincide con el total de conejos ('+fmtN(tot)+').'}else su.hidden=true;
+    var uj=usaJaulas(),N=Math.max(0,tot-gaz);
+    var sa=galp.reduce(function(a,g){return a+g[0]},0),sj=galp.reduce(function(a,g){return a+g[1]},0);
+    $('#ga-t').textContent=fmtN(sa);if($('#gj-t'))$('#gj-t').textContent=fmtN(sj);
+    var gs=$('#gsum');if(sa!==N){gs.hidden=false;gs.textContent='Los animales por galpón suman '+fmtN(sa)+' y deben sumar '+fmtN(N)+' (total menos gazapos lactantes).'}else gs.hidden=true;
+
+    // Bloque 3
+    var na=QS.filter(function(q){return document.querySelector('input[name="'+q.id+'"]:checked').value===q.noAplica});
+    $('#na').innerHTML='<b>Indicadores que no aplican según sus respuestas ('+na.length+')</b>'+(na.length?'<ul>'+na.map(function(q){return '<li>'+q.ind+'</li>'}).join('')+'</ul>':'<p>Todos los indicadores aplican.</p>');
+
+    // Bloque 4
+    var M=muestra(N),pg=reparto([hem,mac,ree,lev],M.n),pgal=reparto(galp.map(function(g){return g[0]}),M.n);
+    var html='<div class="eq">'+fmtN(tot)+' total &nbsp;−&nbsp; '+fmtN(gaz)+' gazapos lactantes &nbsp;=&nbsp; <b>'+fmtN(N)+'</b></div>'
+      +'<div class="big"><div class="n">'+fmtN(M.n)+'</div><div class="t">animales a evaluar</div><div class="s">'+M.base+'</div></div>'
+      +'<div><div class="sec">Por grupo etario</div>'+['Hembras reproductoras','Machos reproductores','Machos y hembras de reemplazo','Levante y engorde'].map(function(l,i){return '<div class="kv"><span>'+l+'</span><b>'+fmtN(pg[i])+'</b></div>'}).join('')+'</div>'
+      +'<div><div class="sec">Por galpón'+(uj?' o jaula':'')+'</div>'+pgal.map(function(s,i){return '<div class="kv"><span>Galpón '+(i+1)+'</span><b>'+fmtN(s)+'</b></div>'}).join('')+'</div>';
+    var plan=galp.map(function(g,i){return {pob:g[0],jau:g[1],s:pgal[i],e:0,rango:'—'}}),totEval=0,galEval=0;
+    if(uj&&sj>0&&N>0){
+      /* Jaulas a evaluar por galpón = muestra del galpón ÷ animales por jaula (mínimo 1 por jaula), en jaulas consecutivas desde la primera del galpón */
+      var ini=1,lista=[];
+      galp.forEach(function(g,i){var c=g[1],s=pgal[i];
+        if(c&&s){var e=Math.min(c,Math.ceil(s/Math.max(1,g[0]/c)-1e-9));totEval+=e;galEval++;var rg=(e===1?'jaula '+fmtN(ini):'jaulas '+fmtN(ini)+' a '+fmtN(ini+e-1));plan[i].e=e;plan[i].rango=rg;lista.push('Galpón '+(i+1)+': '+rg)}
+        ini+=c});
+      html+='<div class="box"><div><b>Jaulas y galpones a evaluar</b><div class="lbl">Los que contienen los animales de la muestra.</div></div>'
+        +'<div class="two"><div><b>'+galEval+' de '+galp.length+'</b><span>galpones</span></div><div><b>'+fmtN(totEval)+' de '+fmtN(sj)+'</b><span>jaulas</span></div></div>'
+        +'<p class="cages">'+lista.join('<br>')+'</p></div>';
+    }
+    R={tot:tot,gaz:gaz,N:N,M:M,t:t,grupos:[hem,mac,ree,lev],pg:pg,plan:plan,uj:uj,totEval:totEval,galEval:galEval,sj:sj,na:na.map(function(q){return q.ind})};
+    $('#m').innerHTML=html;
+    $('#stat').textContent=document.querySelectorAll('[data-b]:checked').length+' de 4 bloques revisados';
+  }
+
+  var esc='pequeno',R=null;
+  function cargar(k){esc=k;var e=ESC[k];SIGMA=e.sigma;galp=e.galp.map(function(g){return g.slice()});
+    $('#gname').textContent=e.granja;$('#s-inv').textContent=fmtN(e.sigma.inv);$('#s-tipo').textContent=e.sigma.tipo;
+    $('#hem').value=e.hem;$('#tot').value=e.tot;$('#gaz').value=e.gaz;$('#g-mac').value=e.mac;$('#g-ree').value=e.ree;$('#g-lev').value=e.lev;$('#gal').value=e.galp.length;$('#resp').value='';
+    Object.keys(e.qs).forEach(function(q){document.querySelector('input[name="'+q+'"][value="'+e.qs[q]+'"]').checked=true});
+    document.querySelectorAll('[data-b]').forEach(function(c){c.checked=false;$('#'+c.dataset.b).classList.remove('ok')});
+    document.querySelectorAll('.f.err').forEach(function(f){f.classList.remove('err');f.querySelector('.msg').textContent=''});
+    document.querySelectorAll('#scen button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.s===k?'true':'false')});
+    tablaGalpones();calc()}
+  document.querySelectorAll('#scen button').forEach(function(b){b.addEventListener('click',function(){cargar(b.dataset.s);try{history.replaceState(null,'','#'+b.dataset.s)}catch(e){}})});
+  ['hem','tot','gaz','g-mac','g-ree','g-lev','resp'].forEach(function(id){$('#'+id).addEventListener('input',calc)});
+  $('#gal').addEventListener('input',function(){tablaGalpones();calc()});
+  document.querySelectorAll('#qs input').forEach(function(i){i.addEventListener('change',function(){if(i.name==='jaul')tablaGalpones();calc()})});
+  document.querySelectorAll('[data-b]').forEach(function(c){c.addEventListener('change',function(){$('#'+c.dataset.b).classList.toggle('ok',c.checked);calc()})});
+  var h=(location.hash||'').slice(1);cargar(ESC[h]?h:'pequeno');
+
+  function err(id,m){var w=$('#w-'+id);if(!w)return;w.classList.toggle('err',!!m);w.querySelector('.msg').textContent=m||''}
+  var lastFocus;
+  function abrir(h){lastFocus=document.activeElement;$('#modal').innerHTML=h;$('#scrim').classList.add('open');var b=$('#modal').querySelector('button.primary')||$('#modal').querySelector('button');b&&b.focus();
+    $('#modal').querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',cerrar)})}
+  function cerrar(){$('#scrim').classList.remove('open');lastFocus&&lastFocus.focus()}
+  $('#scrim').addEventListener('click',function(e){if(e.target.id==='scrim')cerrar()});
+  document.addEventListener('keydown',function(e){if(!$('#scrim').classList.contains('open'))return;if(e.key==='Escape')cerrar();
+    if(e.key==='Tab'){var els=$('#modal').querySelectorAll('button,a[href]');var a=els[0],z=els[els.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+
+  /* ---------- Resultado de la muestra (Etapa I cerrada) ---------- */
+  function resultado(resp){
+    var e=ESC[esc],r=R,ahora=new Date();
+    var fecha=ahora.toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'})+' · '+ahora.toLocaleTimeString('es-CO',{hour:'numeric',minute:'2-digit'});
+    var GR=['Hembras reproductoras','Machos reproductores','Machos y hembras de reemplazo','Levante y engorde'];
+    var pct=function(a,b){return b?(a*100/b).toLocaleString('es-CO',{maximumFractionDigits:1})+' %':'—'};
+    var html='<div class="res-ok" role="status"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5 9-10"/></svg><div><b>Etapa I cerrada</b><span>'+fecha+' · Andrea Gómez, Evaluador</span></div></div>'
+      +'<h1>Resultado de la muestra</h1>'
+      +'<div class="kpis"><div class="kpi main"><span>Animales a evaluar</span><b>'+fmtN(r.M.n)+'</b><small>'+r.M.base+'</small></div>'
+      +'<div class="kpi"><span>Población base</span><b>'+fmtN(r.N)+'</b><small>'+fmtN(r.tot)+' total − '+fmtN(r.gaz)+' gazapos lactantes</small></div>'
+      +'<div class="kpi"><span>Galpones a evaluar</span><b>'+(r.uj?r.galEval:r.plan.filter(function(x){return x.s}).length)+' de '+r.plan.length+'</b><small>Con animales en la muestra</small></div>'
+      +(r.uj?'<div class="kpi"><span>Jaulas a evaluar</span><b>'+fmtN(r.totEval)+' de '+fmtN(r.sj)+'</b><small>'+pct(r.totEval,r.sj)+' de las jaulas</small></div>':'')+'</div>'
+      +'<div class="grid">'
+      +'<div class="col"><section class="blk"><div class="kicker">Datos del predio</div><h2>'+e.granja+'</h2><div>'
+        +[['Municipio',e.mun],['Tipo de productor',r.t],['Responsable que acompaña',resp.replace(/</g,'&lt;')],['Total de conejos',fmtN(r.tot)],['Gazapos lactantes (no se evalúan)',fmtN(r.gaz)]].map(function(x){return '<div class="kv"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>'}).join('')+'</div></section>'
+      +'<section class="blk"><div class="kicker">Bloque 3</div><h2>Indicadores que no aplican ('+r.na.length+')</h2>'+(r.na.length?'<ul class="nal">'+r.na.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>':'<p style="margin:0">Todos los indicadores aplican.</p>')+'<p class="lbl" style="margin:0">Se ocultarán en la Etapa II.</p></section></div>'
+      +'<div class="col"><section class="blk"><div class="kicker">Por grupo etario</div><h2>¿Cuántos animales de cada grupo?</h2><div class="bars">'
+        +GR.map(function(l,i){var w=r.M.n?r.pg[i]*100/r.M.n:0;return '<div class="brow"><div class="bl"><span>'+l+'</span><b>'+fmtN(r.pg[i])+'</b></div><div class="track"><i style="width:'+Math.max(w,r.pg[i]?2:0)+'%"></i></div><small>de '+fmtN(r.grupos[i])+' en el predio</small></div>'}).join('')
+        +'</div></section></div></div>'
+      +'<section class="blk" style="margin-top:20px"><div class="kicker">Plan de muestreo</div><h2>Qué evaluar en cada galpón</h2><div class="tw"><table class="plan"><thead><tr><th>Galpón</th><th class="r">Animales</th><th class="r">A evaluar</th>'+(r.uj?'<th class="r">Jaulas</th><th>Jaulas a evaluar</th>':'')+'</tr></thead><tbody>'
+        +r.plan.map(function(x,i){return '<tr><td class="gn"><b>Galpón '+(i+1)+'</b></td><td class="r" data-l="Animales">'+fmtN(x.pob)+'</td><td class="r" data-l="A evaluar"><b>'+fmtN(x.s)+'</b></td>'+(r.uj?'<td class="r" data-l="Jaulas">'+fmtN(x.jau)+'</td><td class="wide" data-l="Jaulas a evaluar">'+(x.e?fmtN(x.e)+' · '+x.rango:'—')+'</td>':'')+'</tr>'}).join('')
+        +'<tr class="tt"><td class="gn">Total</td><td class="r" data-l="Animales">'+fmtN(r.N)+'</td><td class="r" data-l="A evaluar">'+fmtN(r.M.n)+'</td>'+(r.uj?'<td class="r" data-l="Jaulas">'+fmtN(r.sj)+'</td><td class="wide" data-l="Jaulas a evaluar">'+fmtN(r.totEval)+' jaulas</td>':'')+'</tr></tbody></table></div>'
+        +'<p class="lbl" style="margin:0">Muestra según la Tabla 1 de la norma, sin gazapos lactantes (Nota 1). Reparto proporcional a la población de cada grupo y galpón.</p></section>'
+      +'<div class="next"><div><b>Siguiente: Etapa II · Inspección del predio y del animal</b><span>Evalúa los indicadores MBR y MBA en los '+fmtN(r.M.n)+' animales de la muestra.</span></div>'
+        +'<div class="row"><a class="btn" href="Mis%20visitas%20Cun%C3%ADcola.html">Volver a Mis visitas</a><button class="btn primary" id="e2">Iniciar Etapa II</button></div></div>'
+      +'<p class="legal">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA.</p>';
+    $('#main').innerHTML=html;
+    $('#e2').addEventListener('click',function(){location.href='Etapa%20II%20Cun%C3%ADcola.html#'+esc});
+  }
+
+  $('#close').addEventListener('click',function(){
+    var p=[],first=null;
+    var resp=$('#resp').value.trim();err('resp',resp?'':'Escribe el nombre del responsable.');if(!resp){p.push('Falta el responsable del predio.');first=first||'resp'}
+    var tot=n('tot'),gaz=n('gaz');
+    err('tot',tot?'':'Escribe el total de conejos.');if(!tot){p.push('Falta el total de conejos.');first=first||'tot'}
+    err('gaz',gaz>=tot&&tot?'Los gazapos no pueden ser igual o más que el total.':'');if(gaz>=tot&&tot){p.push('Revisa los gazapos lactantes.');first=first||'gaz'}
+    if(!$('#suma').hidden){p.push('La suma de grupos etarios no coincide con el total.');first=first||'g-mac'}
+    var gal=n('gal');err('gal',gal?'':'Debe haber al menos 1 galpón.');if(!gal){p.push('Falta el número de galpones.');first=first||'gal'}
+    if(!$('#gsum').hidden){p.push('Los animales por galpón no suman el total sin gazapos.');first=first||'ga0'}
+    if(usaJaulas()&&galp.some(function(g){return g[0]>0&&!g[1]})){p.push('Falta el número de jaulas en algún galpón con animales.')}
+    var faltan=[].slice.call(document.querySelectorAll('[data-b]')).filter(function(c){return !c.checked}).map(function(c){return 'Bloque '+c.dataset.b.slice(1)});
+    if(faltan.length)p.push('Marca como revisado: '+faltan.join(', ')+'.');
+    if(p.length){abrir('<h2 id="mt">Antes de cerrar la Etapa I</h2><ul>'+p.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><div class="row"><button class="btn primary" data-close>Revisar</button></div>');
+      if(first){var fid=first;$('#modal [data-close]').addEventListener('click',function(){setTimeout(function(){$('#'+fid).focus()},0)})}return}
+    var M=$('#m .big .n').textContent;
+    abrir('<h2 id="mt">¿Cerrar la Etapa I?</h2><p style="margin:0">Después de cerrarla no podrás editar estos datos. Se evaluarán <b>'+M+' animales</b> en la Etapa II.</p><div class="row"><button class="btn" data-close>Seguir editando</button><button class="btn primary" id="ok">Cerrar Etapa I</button></div>');
+    $('#ok').addEventListener('click',function(){
+      $('#scrim').classList.remove('open');
+      var li=document.querySelectorAll('#steps li');li[0].className='done';li[0].removeAttribute('aria-current');li[1].className='on';li[1].setAttribute('aria-current','step');
+      resultado(resp);
+      document.querySelector('.bar').remove();window.scrollTo(0,0);
+    });
+  });
+})();
+</script>
+
+</body></html>

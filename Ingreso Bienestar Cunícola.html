@@ -1,0 +1,233 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ingreso Bienestar Cunícola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Work+Sans:wght@500;600;700&display=swap">
+<style>
+/* Layout: panel verde institucional a la izquierda + tarjeta de formulario a la derecha; en celular el panel pasa arriba */
+:root{
+  --green:#0b7a3e; --green-dark:#075a2d; --green-soft:#e6f2ea; --yellow:#f2c200;
+  --bg:#f6f8f6; --surface:#ffffff; --fg:#14231a; --muted:#4f6157; --line:#cbd8cf; --line-strong:#14231a;
+  --danger:#a3271b; --danger-soft:#fbe9e7; --ok:#0b7a3e; --on-green:#ffffff;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Work Sans','Atkinson Hyperlegible',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --ok:#5fd08e; --on-green:#0f1712; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --ok:#5fd08e; --on-green:#0f1712; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.wrap{min-height:100vh;display:grid;grid-template-columns:minmax(320px,44%) minmax(0,1fr)}
+.panel{background:var(--green-dark);color:#fff;border-right:4px solid var(--yellow);padding:48px 48px 32px;display:flex;flex-direction:column;gap:28px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-head);font-size:22px;font-weight:700}
+.mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);color:#14231a;display:grid;place-items:center;flex-shrink:0}
+.panel h2{margin:0;font-family:var(--font-head);font-size:34px;line-height:1.15;font-weight:700;text-wrap:balance;max-width:16ch}
+.panel ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;max-width:38ch}
+.panel li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.panel li span.n{width:26px;height:26px;border-radius:50%;border:2px solid var(--yellow);display:grid;place-items:center;font-size:13px;font-weight:700;flex-shrink:0;color:var(--yellow)}
+.panel .legal{margin-top:auto;font-size:12px;color:#cfe3d6;line-height:1.4;max-width:46ch}
+.side{display:flex;align-items:center;justify-content:center;padding-block:40px;padding-inline:24px}
+.card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--green);border-radius:14px;padding:30px 28px;display:flex;flex-direction:column;gap:18px;box-shadow:0 10px 30px rgba(20,35,26,.08)}
+.card h1{margin:0;font-family:var(--font-head);font-size:26px;font-weight:700;text-wrap:balance}
+.card .sub{margin:-10px 0 0;color:var(--muted)}
+form{display:flex;flex-direction:column;gap:16px}
+.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700}
+.inp{position:relative;display:flex}
+.control{width:100%;height:48px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:0 12px;font-size:16px;font-weight:400}
+.inp .control{padding-right:96px}
+.toggle{position:absolute;right:6px;top:6px;height:36px;padding:0 10px;border:0;border-radius:6px;background:var(--green-soft);color:var(--green);font-weight:700;font-size:14px;cursor:pointer}
+.f.err .control{border-color:var(--danger);background:var(--danger-soft)}
+.msg{color:var(--danger);font-size:13px;font-weight:400;min-height:0}
+.btn{height:48px;width:100%;border-radius:8px;border:2px solid var(--green);background:var(--green);color:var(--on-green);font-weight:700;font-size:16px;cursor:pointer}
+.btn:hover:not(:disabled){background:var(--green-dark);border-color:var(--green-dark)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:var(--surface);color:var(--green)}
+.link{color:var(--green);font-weight:700;text-decoration:underline;text-underline-offset:3px;background:none;border:0;padding:0;cursor:pointer;font-size:15px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.alert{border-radius:8px;padding:12px 14px;font-size:15px;display:flex;gap:10px;align-items:flex-start}
+.alert.error{background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger)}
+.alert.ok{background:var(--green-soft);color:var(--fg);border:1px solid var(--green)}
+.alert svg{flex-shrink:0;margin-top:2px}
+.reqs{list-style:none;margin:0;padding:12px 14px;background:var(--green-soft);border-radius:8px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.reqs li{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.reqs li .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:11px;flex-shrink:0}
+.reqs li.ok{color:var(--fg);font-weight:700}
+.reqs li.ok .dot{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--yellow);color:#14231a;font-weight:700;font-size:13px;letter-spacing:.03em}
+.hello{display:flex;flex-direction:column;gap:10px}
+.demo{border:1.5px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted)}
+.demo summary{cursor:pointer;font-weight:700;color:var(--fg)}
+.demo table{width:100%;border-collapse:collapse;margin-top:8px}
+.demo td{padding:4px 4px;border-top:1px solid var(--line);vertical-align:top}
+.demo button{font-size:12px;padding:3px 8px;border:1px solid var(--green);border-radius:6px;background:var(--surface);color:var(--green);cursor:pointer;font-weight:700}
+.mail{width:56px;height:56px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  .panel{border-right:0;border-bottom:4px solid var(--yellow);padding:24px 16px;gap:14px}
+  .panel h2{font-size:22px;max-width:none}
+  .panel ul,.panel .legal{display:none}
+  .side{padding-inline:16px;padding-block:24px 40px;align-items:flex-start}
+  .card{padding:24px 18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <aside class="panel">
+    <div class="brand"><span class="mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 3c-1 3-1 6 1 8M15 3c1 3 1 6-1 8"/><circle cx="12" cy="15" r="5"/></svg></span>Bienestar Cunícola</div>
+    <h2>Evaluación de bienestar animal en granjas cunícolas</h2>
+    <ul>
+      <li><span class="n">I</span>Evaluación en campo por etapas, de la reunión inicial a los resultados.</li>
+      <li><span class="n">%</span>Calificación según la Metodología de Bienestar Animal en Conejos v2.0.</li>
+      <li><span class="n">✓</span>Resultados y reportes por finca para evaluadores y granjeros.</li>
+    </ul>
+    <p class="legal">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA.</p>
+  </aside>
+  <section class="side">
+    <div class="card" id="card" aria-live="polite"></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  /* En producción la contraseña nunca se guarda en el navegador; se valida en el backend con hash y token (RNF05). */
+  var USERS=[
+    {nombre:'Deisy Basto',correo:'deisy.basto@ucc.edu.co',clave:'Admin2026',rol:'Administrador',activo:true},
+    {nombre:'Andrea Gómez',correo:'andrea.gomez@ucc.edu.co',clave:'Conejo2026',rol:'Evaluador',activo:true},
+    {nombre:'Carlos Pérez',correo:'cperez@granja.co',clave:'Consulta26',rol:'Granjero',activo:true},
+    {nombre:'Marta Ruiz',correo:'mruiz@granja.co',clave:'Consulta26',rol:'Granjero',activo:false}];
+  var TEXTO_ROL={'Administrador':'Desde aquí gestionas usuarios, fincas y auditoría.','Evaluador':'Desde aquí ves tus visitas y diligencias las evaluaciones.','Granjero':'Desde aquí consultas los resultados de las fincas autorizadas.'};
+  var fallos={}, bloqueo={}, flash='', ultimoCorreo='', timer=null;
+  var $=function(s){return document.querySelector(s)};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var ss={get:function(){try{return JSON.parse(sessionStorage.getItem('bc-sesion'))}catch(e){return null}},
+          set:function(v){try{sessionStorage.setItem('bc-sesion',JSON.stringify(v))}catch(e){}},
+          del:function(){try{sessionStorage.removeItem('bc-sesion')}catch(e){}}};
+  var memSesion=null;
+  function sesion(){return ss.get()||memSesion}
+  var IC={err:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>',
+          ok:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5 9-10"/></svg>'};
+  var emailOk=function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)};
+  function campoClave(id,label,auto){return '<label class="f" id="w-'+id+'" for="'+id+'">'+label+' *<span class="inp"><input class="control" id="'+id+'" type="password" autocomplete="'+auto+'"><button class="toggle" type="button" data-t="'+id+'" aria-controls="'+id+'" aria-pressed="false">Mostrar</button></span><span class="msg" id="m-'+id+'"></span></label>'}
+  function campo(id,label,type,auto,ph,val){return '<label class="f" id="w-'+id+'" for="'+id+'">'+label+' *<input class="control" id="'+id+'" type="'+type+'" autocomplete="'+auto+'" placeholder="'+ph+'" value="'+esc(val||'')+'"><span class="msg" id="m-'+id+'"></span></label>'}
+  function setErr(id,m){var w=$('#w-'+id);if(!w)return;w.classList.toggle('err',!!m);$('#m-'+id).textContent=m;var i=$('#'+id);if(i)i.setAttribute('aria-invalid',m?'true':'false')}
+  function bindToggles(){document.querySelectorAll('[data-t]').forEach(function(b){b.addEventListener('click',function(){var i=$('#'+b.dataset.t);var show=i.type==='password';i.type=show?'text':'password';b.textContent=show?'Ocultar':'Mostrar';b.setAttribute('aria-pressed',show?'true':'false');i.focus()})})}
+  function go(h){if(location.hash==='#'+h)render();else location.hash=h}
+
+  /* ---------- LOGIN ---------- */
+  function vLogin(){
+    var f=flash;flash='';
+    $('#card').innerHTML='<h1>Iniciar sesión</h1><p class="sub">Ingresa con tu correo institucional.</p>'
+      +(f?'<div class="alert ok" role="status">'+IC.ok+'<span>'+f+'</span></div>':'')
+      +'<div id="alerta"></div>'
+      +'<form id="fl" novalidate>'+campo('correo','Correo','email','username','nombre@ucc.edu.co',ultimoCorreo)+campoClave('clave','Contraseña','current-password')
+      +'<div class="row"><a class="link" href="#recuperar">¿Olvidaste tu contraseña?</a></div>'
+      +'<button class="btn" id="ing" type="submit">Ingresar</button></form>'
+      +'<details class="demo"><summary>Usuarios de prueba (solo prototipo)</summary><table>'+USERS.map(function(u){return '<tr><td><b>'+u.rol+'</b>'+(u.activo?'':' (inactivo)')+'<br>'+u.correo+' · '+u.clave+'</td><td style="text-align:right"><button type="button" data-fill="'+u.correo+'">Usar</button></td></tr>'}).join('')+'</table></details>';
+    bindToggles();
+    document.querySelectorAll('[data-fill]').forEach(function(b){b.addEventListener('click',function(){var u=USERS.find(function(x){return x.correo===b.dataset.fill});$('#correo').value=u.correo;$('#clave').value=u.clave;$('#ing').focus()})});
+    $('#correo').focus();
+    $('#correo').addEventListener('input',revisarBloqueo);
+    revisarBloqueo();
+    $('#fl').addEventListener('submit',function(e){e.preventDefault();
+      var c=$('#correo').value.trim().toLowerCase(), k=$('#clave').value;
+      ultimoCorreo=c; $('#alerta').innerHTML='';
+      var ok=true;
+      if(!c){setErr('correo','Escribe tu correo.');ok=false}else if(!emailOk(c)){setErr('correo','Escribe un correo válido, por ejemplo nombre@ucc.edu.co.');ok=false}else setErr('correo','');
+      if(!k){setErr('clave','Escribe tu contraseña.');ok=false}else setErr('clave','');
+      if(!ok){var first=document.querySelector('.f.err .control');if(first)first.focus();return}
+      if(bloqueado(c))return;
+      var b=$('#ing');b.disabled=true;b.textContent='Ingresando…';
+      setTimeout(function(){
+        b.disabled=false;b.textContent='Ingresar';
+        var u=USERS.find(function(x){return x.correo===c&&x.clave===k});
+        if(!u){fallos[c]=(fallos[c]||0)+1;
+          if(fallos[c]>=5){bloqueo[c]=Date.now()+60000;fallos[c]=0;revisarBloqueo();return}
+          alerta('Correo o contraseña incorrectos.'+(fallos[c]>=3?' Te quedan '+(5-fallos[c])+' intento'+(5-fallos[c]===1?'':'s')+' antes de un bloqueo de 60 segundos.':''));$('#clave').value='';$('#clave').focus();return}
+        if(!u.activo){alerta('Tu usuario está inactivo. Comunícate con el administrador.');return}
+        fallos[c]=0;var s={nombre:u.nombre,rol:u.rol,correo:u.correo};memSesion=s;ss.set(s);go('inicio');
+      },800);
+    });
+  }
+  function alerta(m){$('#alerta').innerHTML='<div class="alert error" role="alert">'+IC.err+'<span>'+m+'</span></div>'}
+  function bloqueado(c){return bloqueo[c]&&bloqueo[c]>Date.now()}
+  function revisarBloqueo(){
+    clearInterval(timer);var inp=$('#correo');if(!inp)return;var c=inp.value.trim().toLowerCase();var b=$('#ing');
+    var tick=function(){var b2=$('#ing');if(!b2)return clearInterval(timer);
+      if(bloqueado(c)){var s=Math.ceil((bloqueo[c]-Date.now())/1000);b2.disabled=true;b2.textContent='Espera '+s+' s';
+        $('#alerta').innerHTML='<div class="alert error" role="alert">'+IC.err+'<span>Hiciste 5 intentos fallidos. Por seguridad, espera '+s+' segundos para intentar de nuevo.</span></div>'}
+      else{b2.disabled=false;b2.textContent='Ingresar';if(bloqueo[c]){delete bloqueo[c];$('#alerta').innerHTML=''}clearInterval(timer)}};
+    if(bloqueado(c)){tick();timer=setInterval(tick,1000)}else if(b&&b.textContent.indexOf('Espera')===0){b.disabled=false;b.textContent='Ingresar';$('#alerta').innerHTML=''}
+  }
+
+  /* ---------- RECUPERAR ---------- */
+  function vRecuperar(){
+    $('#card').innerHTML='<h1>Recuperar contraseña</h1><p class="sub">Escribe tu correo y te enviaremos un enlace para crear una nueva contraseña.</p>'
+      +'<form id="fr" novalidate>'+campo('rcorreo','Correo','email','username','nombre@ucc.edu.co',ultimoCorreo)+'<button class="btn" type="submit">Enviar enlace</button></form>'
+      +'<a class="link" href="#login">Volver a iniciar sesión</a>';
+    $('#rcorreo').focus();
+    $('#fr').addEventListener('submit',function(e){e.preventDefault();var c=$('#rcorreo').value.trim();
+      if(!c){setErr('rcorreo','Escribe tu correo.');return} if(!emailOk(c)){setErr('rcorreo','Escribe un correo válido, por ejemplo nombre@ucc.edu.co.');return}
+      ultimoCorreo=c.toLowerCase(); go('correo-enviado')});
+  }
+  function vEnviado(){
+    $('#card').innerHTML='<div class="mail" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>'
+      +'<h1>Revisa tu correo</h1><p class="sub" style="margin:0">Si el correo está registrado, te enviamos un enlace para crear una nueva contraseña. Revisa también la carpeta de spam.</p>'
+      +'<button class="btn" type="button" id="vl">Volver a iniciar sesión</button>'
+      +'<button class="link" type="button" id="sim">Simular abrir el enlace del correo (prototipo)</button>';
+    $('#vl').addEventListener('click',function(){go('login')});
+    $('#sim').addEventListener('click',function(){go('nueva-clave')});
+    $('#vl').focus();
+  }
+
+  /* ---------- NUEVA CLAVE / PRIMER INGRESO ---------- */
+  function vClave(primer){
+    $('#card').innerHTML='<h1>'+(primer?'Bienvenido. Crea tu contraseña':'Crea tu nueva contraseña')+'</h1><p class="sub">'+(primer?'Es tu primer ingreso. Define la contraseña con la que vas a entrar.':'Usa una contraseña que no hayas usado antes.')+'</p>'
+      +'<form id="fc" novalidate>'+campoClave('n1','Nueva contraseña','new-password')+campoClave('n2','Confirmar contraseña','new-password')
+      +'<ul class="reqs" id="reqs" aria-live="polite"><li data-r="len"><span class="dot">✓</span>Mínimo 8 caracteres</li><li data-r="may"><span class="dot">✓</span>Al menos una mayúscula</li><li data-r="num"><span class="dot">✓</span>Al menos un número</li><li data-r="eq"><span class="dot">✓</span>Las dos contraseñas coinciden</li></ul>'
+      +'<button class="btn" id="gc" type="submit" disabled>Guardar contraseña</button></form>'
+      +'<a class="link" href="#login">Cancelar y volver</a>';
+    bindToggles();$('#n1').focus();
+    var chk=function(){var a=$('#n1').value,b=$('#n2').value;
+      var r={len:a.length>=8,may:/[A-ZÁÉÍÓÚÑ]/.test(a),num:/\d/.test(a),eq:a.length>0&&a===b};
+      Object.keys(r).forEach(function(k){$('[data-r="'+k+'"]').classList.toggle('ok',r[k])});
+      var all=r.len&&r.may&&r.num&&r.eq;$('#gc').disabled=!all;return all};
+    $('#n1').addEventListener('input',chk);$('#n2').addEventListener('input',chk);
+    $('#fc').addEventListener('submit',function(e){e.preventDefault();if(!chk())return;
+      var u=USERS.find(function(x){return x.correo===ultimoCorreo});if(u)u.clave=$('#n1').value;
+      flash='Contraseña actualizada. Ya puedes iniciar sesión.';go('login')});
+  }
+
+  /* ---------- INICIO ---------- */
+  function vInicio(){
+    var s=sesion(); if(!s){go('login');return}
+    $('#card').innerHTML='<div class="hello"><span class="chip">'+esc(s.rol)+'</span><h1>Hola, '+esc(s.nombre.split(' ')[0])+'</h1><p class="sub" style="margin:0">'+TEXTO_ROL[s.rol]+'</p></div>'
+      +'<div class="alert ok" role="status">'+IC.ok+'<span>Ingresaste como <b>'+esc(s.correo)+'</b>.</span></div>'
+      +(s.rol==='Administrador'?'<a class="btn" style="display:grid;place-items:center;text-decoration:none" href="Administraci%C3%B3n%20Bienestar%20Cun%C3%ADcola.html">Ir al módulo de administración</a>':'<a class="btn" style="display:grid;place-items:center;text-decoration:none" href="Mis%20visitas%20Cun%C3%ADcola.html">Ir a mis visitas</a>')
+      +'<button class="btn ghost" type="button" id="out">Cerrar sesión</button>';
+    $('#out').addEventListener('click',function(){ss.del();memSesion=null;flash='Cerraste sesión.';go('login')});
+  }
+
+  function render(){
+    clearInterval(timer);
+    var h=(location.hash||'#login').slice(1);
+    if(h==='recuperar')vRecuperar();
+    else if(h==='correo-enviado')vEnviado();
+    else if(h==='nueva-clave')vClave(false);
+    else if(h==='primer-ingreso')vClave(true);
+    else if(h==='inicio')vInicio();
+    else vLogin();
+  }
+  window.addEventListener('hashchange',render);
+  render();
+})();
+</script>
+
+</body></html>

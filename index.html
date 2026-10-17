@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prototipos Bienestar Cunícola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Work+Sans:wght@500;600;700&display=swap">
+<style>
+/* Índice de prototipos: arranca en el inicio de sesión y sigue el flujo del evaluador */
+:root{
+  --green:#0b7a3e; --green-dark:#075a2d; --green-soft:#e6f2ea; --yellow:#f2c200;
+  --bg:#f6f8f6; --surface:#ffffff; --fg:#14231a; --muted:#4f6157; --line:#cbd8cf;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Work Sans','Atkinson Hyperlegible',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.45}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+header{background:var(--green-dark);color:#fff;border-bottom:4px solid var(--yellow);padding:32px 16px}
+.in{max-width:880px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-head);font-size:22px;font-weight:700}
+.mark{width:40px;height:40px;border-radius:10px;background:var(--yellow);color:#14231a;display:grid;place-items:center;flex-shrink:0}
+header p{margin:12px 0 0;color:#cfe3d6;max-width:60ch}
+main{padding:32px 16px 48px}
+h2{font-family:var(--font-head);font-size:18px;margin:32px 0 12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+h2:first-child{margin-top:0}
+.start{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--green);border-radius:14px;padding:24px;text-decoration:none;color:inherit}
+.start h3{margin:0;font-family:var(--font-head);font-size:24px}
+.start p{margin:4px 0 0;color:var(--muted)}
+.btn{background:var(--green);color:#fff;font-weight:700;padding:12px 20px;border-radius:10px;white-space:nowrap}
+.start:hover .btn{background:var(--green-dark)}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ol a{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit}
+ol a:hover{border-color:var(--green)}
+.n{width:32px;height:32px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-weight:700;flex-shrink:0}
+.t{font-weight:700}
+.d{color:var(--muted);font-size:14px}
+.role{margin-left:auto;font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px;white-space:nowrap}
+footer{font-size:12px;color:var(--muted);padding:0 16px 32px}
+@media (max-width:520px){.role{display:none}}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div class="brand"><span class="mark" aria-hidden="true">BC</span>Bienestar Cunícola</div>
+  <p>Índice de prototipos. Empieza por el inicio de sesión y recorre el flujo de la evaluación de bienestar animal en granjas cunícolas.</p>
+</div></header>
+
+<main><div class="in">
+  <h2>Inicio de sesión</h2>
+  <a class="start" href="Ingreso%20Bienestar%20Cun%C3%ADcola.html">
+    <div><h3>Ingreso</h3><p>Iniciar sesión y recuperar contraseña.</p></div>
+    <span class="btn">Abrir prototipo →</span>
+  </a>
+
+  <h2>Flujo del evaluador</h2>
+  <ol>
+    <li><a href="Mis%20visitas%20Cun%C3%ADcola.html"><span class="n">1</span><span><span class="t">Mis visitas</span><br><span class="d">Visitas asignadas al evaluador.</span></span><span class="role">Evaluador</span></a></li>
+    <li><a href="Etapa%20I%20Cun%C3%ADcola.html"><span class="n">2</span><span><span class="t">Etapa I · Reunión inicial</span><br><span class="d">Consulta SIGMA, datos del predio y tamaño de muestra.</span></span><span class="role">Evaluador</span></a></li>
+    <li><a href="Etapa%20II%20Cun%C3%ADcola.html"><span class="n">3</span><span><span class="t">Etapa II · Inspección del predio y del animal</span><br><span class="d">Indicadores en campo.</span></span><span class="role">Evaluador</span></a></li>
+    <li><a href="Etapa%20III%20Cun%C3%ADcola.html"><span class="n">4</span><span><span class="t">Etapa III · Inspección documental</span><br><span class="d">Revisión de registros y soportes.</span></span><span class="role">Evaluador</span></a></li>
+    <li><a href="Etapa%20IV%20Cun%C3%ADcola.html"><span class="n">5</span><span><span class="t">Etapa IV · Resultados</span><br><span class="d">Calificación y reporte de la finca.</span></span><span class="role">Evaluador</span></a></li>
+  </ol>
+
+  <h2>Administración</h2>
+  <ol>
+    <li><a href="Administraci%C3%B3n%20Bienestar%20Cun%C3%ADcola.html"><span class="n">A</span><span><span class="t">Administración</span><br><span class="d">Gestión del sistema; los cambios quedan en Auditoría.</span></span><span class="role">Administrador</span></a></li>
+  </ol>
+</div></main>
+
+<footer><div class="in">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA. Documentación en <code>docs/</code>.</div></footer>
+</body>
+</html>

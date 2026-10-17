@@ -1,0 +1,292 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Mis visitas Cunícola</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Work+Sans:wght@500;600;700&display=swap">
+<style>
+/* Layout: barra superior verde + menú lateral + contenido con tabla (computador) o tarjetas (celular) */
+:root{
+  --green:#0b7a3e; --green-dark:#075a2d; --green-soft:#e6f2ea; --yellow:#f2c200; --yellow-soft:#fff6d1;
+  --bg:#f6f8f6; --surface:#ffffff; --fg:#14231a; --muted:#4f6157; --line:#cbd8cf; --line-strong:#14231a;
+  --danger:#a3271b; --danger-soft:#fbe9e7; --on-green:#ffffff;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Work Sans','Atkinson Hyperlegible',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c; --yellow-soft:#3a3214;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --on-green:#0f1712; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --green:#3fae6d; --green-dark:#0d3d22; --green-soft:#16301f; --yellow:#f2c94c; --yellow-soft:#3a3214;
+  --bg:#0f1712; --surface:#16211a; --fg:#e8f0ea; --muted:#a5b8ab; --line:#2c3c31; --line-strong:#cfdcd3;
+  --danger:#ff8a7a; --danger-soft:#3a1b17; --on-green:#0f1712; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.45}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.topbar{background:var(--green-dark);color:#fff;border-bottom:4px solid var(--yellow);display:flex;align-items:center;gap:16px;padding:12px 24px;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:700;font-size:19px;margin-right:auto;min-width:0}
+.mark{width:34px;height:34px;border-radius:8px;background:var(--yellow);color:#14231a;display:grid;place-items:center;flex-shrink:0}
+.who{font-size:15px;color:#e3efe7;text-align:right}
+.who b{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:8px;border:2px solid var(--green);background:var(--surface);color:var(--green);font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.primary{background:var(--green);color:var(--on-green)}
+.btn.primary:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.btn.light{background:transparent;color:#fff;border-color:#fff}
+.btn.light:hover{background:rgba(255,255,255,.12)}
+.btn.add{border-style:dashed}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.layout{display:grid;grid-template-columns:264px minmax(0,1fr);min-height:calc(100vh - 66px)}
+.side{border-right:1px solid var(--line);background:var(--surface);padding:20px 14px;display:flex;flex-direction:column;gap:8px}
+.nav{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer;text-align:left;width:100%}
+.nav[aria-current="page"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.nav .count{margin-left:auto;font-size:13px;background:var(--yellow);color:#14231a;border-radius:999px;padding:1px 9px}
+main{padding:28px 32px 40px;min-width:0}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+h1{margin:0;font-family:var(--font-head);font-size:30px;font-weight:700}
+.sub{margin:4px 0 0;color:var(--muted)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.control{height:44px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);padding:0 12px;font-size:16px}
+.tools .control{min-width:0}
+.search{flex:1 1 240px}
+.table{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-align:left;color:var(--muted);padding:14px 16px;border-bottom:2px solid var(--line-strong)}
+td{padding:16px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+th.r,td.r{text-align:right}
+.farm{font-weight:700}
+.tag{display:inline-block;border:1.5px solid var(--green);color:var(--green);background:var(--green-soft);border-radius:6px;padding:2px 10px;font-weight:700;font-size:14px}
+.tag.intensivo{border-color:var(--fg);color:var(--fg);background:var(--yellow-soft)}
+.state{font-size:14px;color:var(--muted)}
+.state.on{color:var(--fg);font-weight:700}
+.state.on::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--yellow);border:1.5px solid var(--fg);margin-right:6px;vertical-align:middle}
+.today{font-weight:700}
+td.nw{white-space:nowrap}
+.act{min-width:190px}
+.cards{display:none;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--green);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card.cur{border-left-color:var(--yellow)}
+.card .meta{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted);font-size:15px;align-items:center}
+.card .btn{width:100%}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+.score{font-weight:700}
+.legal{margin-top:28px;font-size:12px;color:var(--muted);max-width:70ch}
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(10,20,14,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.scrim.open{display:flex}
+.modal{background:var(--surface);border-radius:14px;border-top:6px solid var(--green);width:100%;max-width:520px;max-height:calc(100vh - 32px);overflow:auto;padding:24px;display:flex;flex-direction:column;gap:16px}
+.modal h2{margin:0;font-family:var(--font-head);font-size:22px}
+.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700}
+.f .control{font-weight:400;width:100%}
+.f.err .control{border-color:var(--danger);background:var(--danger-soft)}
+.msg{color:var(--danger);font-size:13px;font-weight:400}
+.hint{font-size:14px;color:var(--muted);font-weight:400}
+.info{background:var(--green-soft);border-radius:8px;padding:12px 14px;font-size:15px}
+.info b{font-family:var(--font-head)}
+.row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:10px;font-weight:700;display:none;z-index:30;max-width:calc(100vw - 32px)}
+.toast.show{display:block}
+@media (max-width:1000px){ .table{display:none} .cards{display:flex} }
+@media (max-width:760px){
+  .topbar{padding:10px 16px;gap:10px}
+  .topbar .btn{height:40px;padding:0 12px;font-size:14px}
+  .brand{font-size:17px}
+  .who{display:none}
+  .layout{grid-template-columns:1fr}
+  .side{flex-direction:row;border-right:0;border-bottom:1px solid var(--line);padding:10px 16px;overflow-x:auto}
+  .nav{width:auto;flex:1 1 0;min-width:0;height:44px;padding:0 10px;font-size:15px;justify-content:center}
+  .nav .lg{display:none}
+  .nav,.brand{white-space:nowrap}
+  .brand{font-size:16px}
+  .nav svg{display:none}
+  main{padding:20px 16px 32px}
+  h1{font-size:24px}
+  .head .btn{width:100%}
+  .hacts{width:100%;flex-direction:column}
+}
+.hacts{display:flex;gap:10px;flex-wrap:wrap}
+</style>
+
+<header class="topbar">
+  <div class="brand"><span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 3c-1 3-1 6 1 8M15 3c1 3 1 6-1 8"/><circle cx="12" cy="15" r="5"/></svg></span>Bienestar Cunícola</div>
+  <div class="who"><b>Andrea Gómez</b><br>Evaluador</div>
+  <a class="btn light" href="Ingreso%20Bienestar%20Cun%C3%ADcola.html">Cerrar sesión</a>
+</header>
+
+<div class="layout">
+  <nav class="side" aria-label="Menú">
+    <button class="nav" data-v="prog" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Mis visitas</span><span class="count" id="c-prog">0</span></button>
+    <button class="nav" data-v="hist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Histórico<span class="lg"> de visitas</span></span></button>
+  </nav>
+  <main id="main"></main>
+</div>
+
+<div class="scrim" id="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt" id="modal"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  /* Datos de prototipo. En producción vienen del backend según el evaluador autenticado. */
+  var HOY=new Date(2026,8,29);
+  var FINCAS=[
+    {id:1,nombre:'Conejera La Palma',municipio:'Piedecuesta',hembras:45},
+    {id:2,nombre:'Granja La Esperanza',municipio:'Piedecuesta',hembras:8},
+    {id:3,nombre:'Cunícola El Roble',municipio:'Floridablanca',hembras:62},
+    {id:4,nombre:'Conejera San Isidro',municipio:'Lebrija',hembras:140},
+    {id:5,nombre:'Granja Los Cerezos',municipio:'Girón',hembras:24},
+    {id:6,nombre:'Cunícola Villa Rosa',municipio:'Bucaramanga',hembras:6}];
+  var ETAPAS=['Etapa I · Reunión inicial','Etapa II · Evaluación MBR/MBA','Etapa III · MBG','Etapa IV · Resultado'];
+  var st={vista:'prog',q:'',tipo:'',
+    visitas:[
+      {id:1,finca:1,fecha:d(0),etapa:2},
+      {id:2,finca:2,fecha:d(1),etapa:0},
+      {id:3,finca:3,fecha:d(2),etapa:0},
+      {id:4,finca:4,fecha:d(3),etapa:0}],
+    hist:[
+      {finca:5,fecha:d(-12),total:81.0},
+      {finca:6,fecha:d(-30),total:92.4},
+      {finca:3,fecha:d(-95),total:68.7},
+      {finca:1,fecha:d(-150),total:47.9}],
+    sig:5};
+  function d(n){var x=new Date(HOY);x.setDate(x.getDate()+n);return x}
+  /* Norma §5.2: Pequeño ≤10 hembras reproductoras, Mediano 11–100, Intensivo >100 */
+  function tipo(h){return h<=10?'Pequeño':h<=100?'Mediano':'Intensivo'}
+  function clasif(t){return t>=90?'Excelente':t>=75?'Alto':t>=50?'Medio':'Bajo'}
+  var DIAS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  function fmt(f){var diff=Math.round((f-HOY)/864e5);if(diff===0)return 'Hoy';if(diff===1)return 'Mañana';return DIAS[f.getDay()]+' '+f.getDate()+' '+MES[f.getMonth()]+(f.getFullYear()!==HOY.getFullYear()?' '+f.getFullYear():'')}
+  function iso(f){return f.getFullYear()+'-'+String(f.getMonth()+1).padStart(2,'0')+'-'+String(f.getDate()).padStart(2,'0')}
+  function F(id){return FINCAS.find(function(x){return x.id===id})}
+  var $=function(s){return document.querySelector(s)};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  function tag(t){return '<span class="tag'+(t==='Intensivo'?' intensivo':'')+'">'+t+'</span>'}
+  function estado(v){return v.etapa>0?'<span class="state on">En curso · '+ETAPAS[v.etapa-1].split(' · ')[0]+'</span>':'<span class="state">Pendiente</span>'}
+  function boton(v){return v.etapa>0?'<button class="btn primary act" data-cont="'+v.id+'">Continuar</button>':'<button class="btn act" data-ini="'+v.id+'">Iniciar evaluación</button>'}
+
+  function filtrar(arr){return arr.filter(function(v){var f=F(v.finca);
+    return (!st.q||(f.nombre+' '+f.municipio).toLowerCase().indexOf(st.q.toLowerCase())>=0)&&(!st.tipo||tipo(f.hembras)===st.tipo)})}
+  function herramientas(){return '<div class="tools"><input class="control search" id="q" type="search" placeholder="Buscar granja o municipio" aria-label="Buscar granja o municipio" value="'+esc(st.q)+'">'
+    +'<select class="control" id="ft" aria-label="Filtrar por tipo de productor"><option value="">Todos los tipos</option>'+['Pequeño','Mediano','Intensivo'].map(function(t){return '<option'+(st.tipo===t?' selected':'')+'>'+t+'</option>'}).join('')+'</select></div>'}
+
+  function vProg(){
+    var list=filtrar(st.visitas).sort(function(a,b){return (b.etapa>0)-(a.etapa>0)||a.fecha-b.fecha});
+    var html='<div class="head"><div><h1>Mis visitas programadas</h1><p class="sub">'+st.visitas.length+' visita'+(st.visitas.length===1?'':'s')+' asignada'+(st.visitas.length===1?'':'s')+'</p></div><div class="hacts"><button class="btn" id="nfin">+ Crear finca</button><button class="btn add" id="prog">+ Programar visita</button></div></div>'+herramientas();
+    if(!list.length){html+='<div class="table" style="display:block"><p class="empty">No hay visitas con esos filtros.</p></div>';return html}
+    html+='<div class="table"><table><thead><tr><th>Granja</th><th>Municipio</th><th>Fecha</th><th>Tipo de productor</th><th>Estado</th><th class="r">Acción</th></tr></thead><tbody>'
+      +list.map(function(v){var f=F(v.finca);return '<tr><td class="farm">'+esc(f.nombre)+'</td><td>'+esc(f.municipio)+'</td><td class="nw '+(fmt(v.fecha)==='Hoy'?'today':'')+'">'+fmt(v.fecha)+'</td><td>'+tag(tipo(f.hembras))+'</td><td class="nw">'+estado(v)+'</td><td class="r">'+boton(v)+'</td></tr>'}).join('')
+      +'</tbody></table></div><div class="cards">'
+      +list.map(function(v){var f=F(v.finca);return '<article class="card'+(v.etapa>0?' cur':'')+'"><div class="farm">'+esc(f.nombre)+'</div><div class="meta"><span>'+esc(f.municipio)+'</span><span class="'+(fmt(v.fecha)==='Hoy'?'today':'')+'">'+fmt(v.fecha)+'</span>'+tag(tipo(f.hembras))+'</div>'+estado(v)+boton(v).replace(' act','')+'</article>'}).join('')+'</div>';
+    return html;
+  }
+  function vHist(){
+    var list=filtrar(st.hist).sort(function(a,b){return b.fecha-a.fecha});
+    var html='<div class="head"><div><h1>Histórico de visitas</h1><p class="sub">Evaluaciones finalizadas</p></div></div>'+herramientas();
+    if(!list.length)return html+'<div class="table" style="display:block"><p class="empty">Todavía no hay visitas finalizadas con esos filtros.</p></div>';
+    html+='<div class="table"><table><thead><tr><th>Granja</th><th>Municipio</th><th>Fecha</th><th>Tipo de productor</th><th>Calificación</th><th class="r">Acción</th></tr></thead><tbody>'
+      +list.map(function(v,i){var f=F(v.finca);return '<tr><td class="farm">'+esc(f.nombre)+'</td><td>'+esc(f.municipio)+'</td><td class="nw">'+fmt(v.fecha)+'</td><td>'+tag(tipo(f.hembras))+'</td><td><span class="score">'+v.total.toFixed(1).replace('.',',')+' %</span> · '+clasif(v.total)+'</td><td class="r"><button class="btn act" data-ver="'+st.hist.indexOf(v)+'">Ver resultado</button></td></tr>'}).join('')
+      +'</tbody></table></div><div class="cards">'
+      +list.map(function(v){var f=F(v.finca);return '<article class="card"><div class="farm">'+esc(f.nombre)+'</div><div class="meta"><span>'+esc(f.municipio)+'</span><span>'+fmt(v.fecha)+'</span>'+tag(tipo(f.hembras))+'</div><div><span class="score">'+v.total.toFixed(1).replace('.',',')+' %</span> · '+clasif(v.total)+'</div><button class="btn" data-ver="'+st.hist.indexOf(v)+'">Ver resultado</button></article>'}).join('')+'</div>';
+    return html;
+  }
+
+  function render(focusId){
+    document.querySelectorAll('.nav').forEach(function(n){n.toggleAttribute('aria-current',false);if(n.dataset.v===st.vista)n.setAttribute('aria-current','page')});
+    $('#c-prog').textContent=st.visitas.length;
+    $('#main').innerHTML=(st.vista==='prog'?vProg():vHist())+'<p class="legal">Prototipo académico (UCC) basado en la Metodología de Bienestar Animal en Conejos v2.0 del ICA. No es un sitio oficial del ICA.</p>';
+    var q=$('#q');q.addEventListener('input',function(){st.q=q.value;render('q')});
+    $('#ft').addEventListener('change',function(e){st.tipo=e.target.value;render('ft')});
+    if(focusId==='q'){var el=$('#q');el.focus();el.setSelectionRange(el.value.length,el.value.length)}else if(focusId)$('#'+focusId)&&$('#'+focusId).focus();
+    var p=$('#prog');if(p)p.addEventListener('click',mProgramar);
+    var nf=$('#nfin');if(nf)nf.addEventListener('click',mCrearFinca);
+    document.querySelectorAll('[data-ini]').forEach(function(b){b.addEventListener('click',function(){mIniciar(+b.dataset.ini)})});
+    document.querySelectorAll('[data-cont]').forEach(function(b){b.addEventListener('click',function(){mContinuar(+b.dataset.cont)})});
+    document.querySelectorAll('[data-ver]').forEach(function(b){b.addEventListener('click',function(){mVer(+b.dataset.ver)})});
+  }
+  document.querySelectorAll('.nav').forEach(function(n){n.addEventListener('click',function(){st.vista=n.dataset.v;st.q='';st.tipo='';render()})});
+
+  /* ---------- modal genérico con foco atrapado ---------- */
+  var lastFocus=null;
+  function abrir(html){lastFocus=document.activeElement;$('#modal').innerHTML=html;$('#scrim').classList.add('open');
+    var f=$('#modal').querySelector('input,select,button.primary,button');if(f)f.focus();
+    $('#modal').querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',cerrar)})}
+  function cerrar(){$('#scrim').classList.remove('open');if(lastFocus&&document.body.contains(lastFocus))lastFocus.focus()}
+  $('#scrim').addEventListener('click',function(e){if(e.target.id==='scrim')cerrar()});
+  document.addEventListener('keydown',function(e){if(!$('#scrim').classList.contains('open'))return;
+    if(e.key==='Escape')cerrar();
+    if(e.key==='Tab'){var els=[].slice.call($('#modal').querySelectorAll('button,input,select,a[href]')).filter(function(x){return !x.disabled});
+      if(!els.length)return;var a=els[0],z=els[els.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+  var tt;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3200)}
+
+  function mProgramar(){
+    var ocupadas=st.visitas.map(function(v){return v.finca});
+    var libres=FINCAS.filter(function(f){return ocupadas.indexOf(f.id)<0});
+    abrir('<h2 id="mt">Programar visita</h2>'
+      +(libres.length?'<label class="f" id="w-fi">Granja *<select class="control" id="fi"><option value="">Selecciona una granja</option>'+libres.map(function(f){return '<option value="'+f.id+'">'+esc(f.nombre)+' · '+esc(f.municipio)+'</option>'}).join('')+'</select><span class="msg" id="m-fi"></span></label>'
+      +'<div class="info" id="tp" hidden></div>'
+      +'<label class="f" id="w-fe">Fecha de la visita *<input class="control" id="fe" type="date" min="'+iso(HOY)+'"><span class="msg" id="m-fe"></span></label>'
+      +'<div class="row"><button class="btn" data-close>Cancelar</button><button class="btn primary" id="ok">Programar</button></div>'
+      :'<p>Todas las granjas ya tienen una visita programada.</p><div class="row"><button class="btn primary" data-close>Entendido</button></div>'));
+    if(!libres.length)return;
+    $('#fi').addEventListener('change',function(){var f=F(+this.value);var tp=$('#tp');
+      if(!f){tp.hidden=true;return}tp.hidden=false;tp.innerHTML='Tipo de productor: <b>'+tipo(f.hembras)+'</b><br><span class="hint">'+f.hembras+' hembras reproductoras registradas en la finca (norma §5.2).</span>'});
+    $('#ok').addEventListener('click',function(){
+      var fi=+$('#fi').value,fe=$('#fe').value,ok=true;
+      err('fi',fi?'':'Selecciona la granja.');if(!fi)ok=false;
+      if(!fe){err('fe','Selecciona la fecha.');ok=false}else if(fe<iso(HOY)){err('fe','La fecha no puede ser anterior a hoy.');ok=false}else err('fe','');
+      if(!ok){var x=$('#modal .f.err .control');x&&x.focus();return}
+      var p=fe.split('-');st.visitas.push({id:st.sig++,finca:fi,fecha:new Date(+p[0],p[1]-1,+p[2]),etapa:0});
+      cerrar();st.vista='prog';render();toast('Visita programada en '+F(fi).nombre+'.')});
+  }
+  /* Crear finca: el tipo de productor se calcula con las hembras reproductoras (norma §5.2) */
+  var MUNICIPIOS=['Bucaramanga','Floridablanca','Girón','Piedecuesta','Lebrija','Los Santos','Rionegro','San Gil','Socorro','Barbosa'];
+  function mCrearFinca(){
+    abrir('<h2 id="mt">Crear finca</h2>'
+      +'<label class="f" id="w-fn">Nombre de la finca *<input class="control" id="fn" type="text" placeholder="Ej.: Granja La Esperanza"><span class="msg" id="m-fn"></span></label>'
+      +'<label class="f" id="w-fr">Responsable del predio *<input class="control" id="fr" type="text" placeholder="Nombre completo"><span class="msg" id="m-fr"></span></label>'
+      +'<label class="f" id="w-fm">Municipio (Santander) *<select class="control" id="fm"><option value="">Selecciona un municipio</option>'+MUNICIPIOS.map(function(m){return '<option>'+m+'</option>'}).join('')+'</select><span class="msg" id="m-fm"></span></label>'
+      +'<label class="f" id="w-fh">Hembras reproductoras *<input class="control" id="fh" type="number" min="1" step="1" inputmode="numeric"><span class="msg" id="m-fh"></span></label>'
+      +'<div class="info" id="ftp">Tipo de productor: escribe las hembras reproductoras para calcularlo.</div>'
+      +'<div class="row"><button class="btn" data-close>Cancelar</button><button class="btn primary" id="ok">Crear finca</button></div>');
+    $('#fh').addEventListener('input',function(){var h=parseInt(this.value,10);
+      $('#ftp').innerHTML=h>0?'Tipo de productor: <b>'+tipo(h)+'</b><br><span class="hint">Pequeño hasta 10 · Mediano 11 a 100 · Intensivo más de 100 hembras (norma §5.2).</span>':'Tipo de productor: escribe las hembras reproductoras para calcularlo.'});
+    $('#ok').addEventListener('click',function(){
+      var n=$('#fn').value.trim(),r=$('#fr').value.trim(),m=$('#fm').value,h=parseInt($('#fh').value,10),ok=true;
+      var dup=FINCAS.some(function(x){return x.nombre.toLowerCase()===n.toLowerCase()});
+      err('fn',!n?'Escribe el nombre de la finca.':dup?'Ya existe una finca con ese nombre.':'');if(!n||dup)ok=false;
+      err('fr',r?'':'Escribe el nombre del responsable.');if(!r)ok=false;
+      err('fm',m?'':'Selecciona el municipio.');if(!m)ok=false;
+      err('fh',h>0?'':'Escribe un número mayor que 0.');if(!(h>0))ok=false;
+      if(!ok){var w=$('#modal .f.err .control');if(w)w.focus();return}
+      FINCAS.push({id:FINCAS.reduce(function(a,x){return Math.max(a,x.id)},0)+1,nombre:n,municipio:m,hembras:h,resp:r});
+      cerrar();render();toast('Finca '+n+' creada. Ya puedes programarle una visita.')});
+  }
+  function err(id,m){var w=$('#w-'+id);w.classList.toggle('err',!!m);$('#m-'+id).textContent=m}
+
+  /* Abre la pantalla de la etapa en curso; el escenario se elige por el tamaño de la finca */
+  var ETAPA_URL=['Etapa%20I%20Cun%C3%ADcola.html','Etapa%20II%20Cun%C3%ADcola.html','Etapa%20III%20Cun%C3%ADcola.html','Etapa%20IV%20Cun%C3%ADcola.html'];
+  function irEtapa(v){var t=tipo(F(v.finca).hembras);location.href=ETAPA_URL[v.etapa-1]+'#'+(t==='Pequeño'?'pequeno':t==='Mediano'?'mediano':'intensivo')}
+  function mIniciar(id){var v=st.visitas.find(function(x){return x.id===id}),f=F(v.finca);
+    abrir('<h2 id="mt">Iniciar evaluación</h2><div class="info"><b>'+esc(f.nombre)+'</b> · '+esc(f.municipio)+'<br>Tipo de productor: <b>'+tipo(f.hembras)+'</b> ('+f.hembras+' hembras reproductoras)</div>'
+      +'<p style="margin:0">La evaluación empieza por la <b>Etapa I · Reunión inicial</b> con el productor. Puedes salir y retomarla después con el botón Continuar.</p>'
+      +'<div class="row"><button class="btn" data-close>Cancelar</button><button class="btn primary" id="ok">Iniciar Etapa I</button></div>');
+    $('#ok').addEventListener('click',function(){v.etapa=1;cerrar();irEtapa(v)});
+  }
+  function mContinuar(id){var v=st.visitas.find(function(x){return x.id===id}),f=F(v.finca);
+    var pasos=ETAPAS.map(function(e,i){var n=i+1;return '<li style="padding:6px 0;'+(n<v.etapa?'color:var(--muted)':n===v.etapa?'font-weight:700':'')+'">'+(n<v.etapa?'✓ ':n===v.etapa?'▶ ':'○ ')+e+'</li>'}).join('');
+    abrir('<h2 id="mt">'+esc(f.nombre)+'</h2><p class="sub" style="margin:-8px 0 0">'+esc(f.municipio)+' · '+tag(tipo(f.hembras))+'</p>'
+      +'<ul style="list-style:none;margin:0;padding:12px 14px;background:var(--green-soft);border-radius:8px">'+pasos+'</ul>'
+      +'<div class="row"><button class="btn" data-close>Cerrar</button><button class="btn primary" id="ok">Ir a la '+ETAPAS[v.etapa-1].split(' · ')[0]+'</button></div>');
+    $('#ok').addEventListener('click',function(){
+      cerrar();irEtapa(v)});
+  }
+  function mVer(i){var v=st.hist[i],f=F(v.finca);
+    /* Pesos de la norma: MBR 30 %, MBA 60 %, MBG 10 % */
+    abrir('<h2 id="mt">Resultado · '+esc(f.nombre)+'</h2><div class="info" style="font-size:16px">Calificación total: <b style="font-size:24px">'+v.total.toFixed(1).replace('.',',')+' %</b><br>Nivel de bienestar: <b>'+clasif(v.total)+'</b></div>'
+      +'<p class="hint" style="margin:0">'+fmt(v.fecha)+' · '+tipo(f.hembras)+'. Ponderación: MBR 30 %, MBA 60 %, MBG 10 %. Escala: Excelente ≥ 90, Alto ≥ 75, Medio ≥ 50, Bajo &lt; 50.</p>'
+      +'<div class="row"><button class="btn primary" data-close>Cerrar</button></div>');
+  }
+  render();
+})();
+</script>
+
+</body></html>
