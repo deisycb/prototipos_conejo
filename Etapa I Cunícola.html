@@ -408,4 +408,20 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 })();
 </script>
 
+<style>
+/* Esquina con la parte de la norma (Metodología ICA v2.0) que sustenta la lógica de esta pantalla; sube por encima de la barra inferior si existe */
+.normref{position:fixed;left:16px;bottom:16px;z-index:7;max-width:min(360px,calc(100vw - 32px));font-size:13px;line-height:1.4}
+body:has(.bar) .normref{bottom:84px}
+.normref summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--green);border:1.5px solid var(--green);border-radius:999px;padding:6px 12px;font-family:var(--font-head);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.normref summary::-webkit-details-marker{display:none}
+.normref summary::after{content:"▴";font-size:11px}
+.normref[open] summary::after{content:"▾"}
+.normref .np{margin-top:8px;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.normref .np b{font-family:var(--font-head);display:block;margin-bottom:6px}
+.normref ul{margin:0;padding-left:18px}
+.normref li{margin:3px 0}
+.normref .ns{font-weight:700;color:var(--green)}
+.normref .nf{margin:8px 0 0;color:var(--muted);font-size:12px}
+</style>
+<details class="normref"><summary>Norma ICA</summary><div class="np"><b>Dónde aparece esta lógica en la norma</b><ul><li><span class="ns">§5.2</span> · Tipo de productor calculado con las hembras reproductoras.</li><li><span class="ns">Tabla 1</span> · Tamaño de muestra según la población a evaluar.</li><li><span class="ns">Tabla 1, Notas 1 y 2</span> · La población excluye gazapos lactantes; reparto de la muestra por grupo.</li></ul><p class="nf">Metodología de Bienestar Animal en Conejos v2.0 (ICA).</p></div></details>
 </body></html>

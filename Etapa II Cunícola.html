@@ -328,4 +328,20 @@ var IND={"MBR": [{"nombre": "Estado y acceso a comederos", "sec": "7.1.1", "meto
 })();
 </script>
 
+<style>
+/* Esquina con la parte de la norma (Metodología ICA v2.0) que sustenta la lógica de esta pantalla; sube por encima de la barra inferior si existe */
+.normref{position:fixed;left:16px;bottom:16px;z-index:7;max-width:min(360px,calc(100vw - 32px));font-size:13px;line-height:1.4}
+body:has(.bar) .normref{bottom:84px}
+.normref summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--green);border:1.5px solid var(--green);border-radius:999px;padding:6px 12px;font-family:var(--font-head);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.normref summary::-webkit-details-marker{display:none}
+.normref summary::after{content:"▴";font-size:11px}
+.normref[open] summary::after{content:"▾"}
+.normref .np{margin-top:8px;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.normref .np b{font-family:var(--font-head);display:block;margin-bottom:6px}
+.normref ul{margin:0;padding-left:18px}
+.normref li{margin:3px 0}
+.normref .ns{font-weight:700;color:var(--green)}
+.normref .nf{margin:8px 0 0;color:var(--muted);font-size:12px}
+</style>
+<details class="normref"><summary>Norma ICA</summary><div class="np"><b>Dónde aparece esta lógica en la norma</b><ul><li><span class="ns">§7.1.1 a §7.1.15</span> · Medidas basadas en recursos (MBR): alimento, agua, alojamiento, ambiente.</li><li><span class="ns">§7.2.1 a §7.2.16</span> · Medidas basadas en el animal (MBA): comportamiento, salud, condición corporal.</li><li><span class="ns">Tabla 3</span> · Espacio disponible por animal (§7.1.11).</li><li><span class="ns">§5.4</span> · Pesos: MBR 30 %, MBA 60 %.</li></ul><p class="nf">Metodología de Bienestar Animal en Conejos v2.0 (ICA).</p></div></details>
 </body></html>
